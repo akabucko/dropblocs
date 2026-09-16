@@ -1,0 +1,80 @@
+{
+  "$schema": "https://dropblocs.com/schema/manifest.schema.json",
+  "spec": "1.0",
+  "name": "hero-parallax",
+  "version": "1.0.0",
+  "title": "Parallax Hero",
+  "summary": "Full-bleed hero with a slow parallax image and a staggered heading reveal.",
+  "category": "hero",
+  "tags": ["parallax", "scroll-driven"],
+  "author": { "name": "Joe Buckley", "url": "https://dropblocs.com" },
+  "license": "MIT",
+  "intent": {
+    "design": "A calm, editorial opener. The image carries the mood and the heading carries the message; nothing else competes. It should feel like the first page of a printed brochure, not a SaaS landing page.",
+    "motion": "The image drifts slower than the page to give depth without drawing attention to itself. The heading reveals word by word so the reader is led into the copy. If the parallax is noticeable as an effect, it is too strong."
+  },
+  "files": [
+    { "path": "block.html", "type": "html", "target": "{blocksDir}/hero-parallax/block.html" },
+    { "path": "block.js", "type": "js", "target": "{blocksDir}/hero-parallax/block.js" },
+    { "path": "preview.webp", "type": "asset" }
+  ],
+  "preview": { "image": "preview.webp" },
+  "dependencies": {
+    "npm": ["gsap@^3.14", "alpinejs@^3.17"],
+    "blocks": ["section-wrapper"],
+    "tokens": "^0.1.0"
+  },
+  "runtime": { "globals": ["gsap", "ScrollTrigger", "Alpine"] },
+  "slots": {
+    "eyebrow": { "type": "text", "required": false, "description": "Short label above the heading" },
+    "heading": { "type": "text", "required": true, "description": "Main heading, ideally under ten words" },
+    "body": { "type": "richtext", "required": false },
+    "image": { "type": "image", "required": true, "description": "Landscape, at least 2000px wide" },
+    "cta": { "type": "link", "required": false },
+    "stats": {
+      "type": "list", "required": false, "min": 2, "max": 4,
+      "slots": {
+        "label": { "type": "text", "required": true },
+        "value": { "type": "text", "required": true }
+      }
+    }
+  },
+  "tokens": {
+    "consumes": ["color-db-bg", "color-db-fg", "font-db-sans", "duration-db-base", "ease-db-out"],
+    "provides": [
+      { "name": "color-db-hero-glow", "default": "#ff6a00", "description": "Radial glow behind the heading" }
+    ]
+  },
+  "motion": {
+    "triggers": ["load", "scrub"],
+    "reducedMotion": "fade",
+    "params": {
+      "revealDuration": { "type": "duration", "default": "db-base", "min": 200, "max": 1200, "description": "Heading reveal length" },
+      "revealEase": { "type": "easing", "default": "db-out", "locked": true },
+      "stagger": { "type": "number", "default": 0.08, "min": 0.02, "max": 0.2, "description": "Seconds between heading words" },
+      "parallaxAmount": { "type": "number", "default": 0.15, "min": 0, "max": 0.4, "locked": true },
+      "direction": { "type": "enum", "default": "up", "values": ["up", "down"] }
+    }
+  },
+  "usage": {
+    "placement": ["First block on a page", "Never more than one per page"],
+    "pairsWith": ["logo-wall", "features-grid"],
+    "avoidWith": ["hero-video"],
+    "a11y": ["Heading slot renders an h1", "Parallax pauses under prefers-reduced-motion"],
+    "doNotChange": ["The heading reveal order", "Image aspect ratio below 16:9"]
+  },
+  "variants": [
+    {
+      "name": "video",
+      "description": "Looping background video instead of an image",
+      "motion": { "parallaxAmount": 0 },
+      "slots": { "image": { "required": false } }
+    }
+  ],
+  "conversion": {
+    "twig": {
+      "notes": ["Stats are rendered once in Twig; the JS handles the count-up, not the template"],
+      "slots": { "cta": "Use the project's button component if one exists, otherwise a plain anchor" }
+    }
+  }
+}

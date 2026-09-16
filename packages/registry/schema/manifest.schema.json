@@ -1,0 +1,194 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dropblocs.com/schema/manifest.schema.json",
+  "title": "Dropblocs Manifest",
+  "description": "Manifest Spec v1.0. See docs/manifest-spec.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "spec", "name", "version", "title", "summary", "category", "author", "license",
+    "intent", "files", "preview", "dependencies", "runtime", "slots", "tokens", "motion", "usage"
+  ],
+  "properties": {
+    "$schema": { "type": "string" },
+    "spec": { "type": "string", "pattern": "^1\\.[0-9]+$" },
+    "name": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+    "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(-[0-9A-Za-z.-]+)?$" },
+    "title": { "type": "string", "minLength": 1 },
+    "summary": { "type": "string", "minLength": 1, "maxLength": 140 },
+    "category": {
+      "type": "string",
+      "enum": ["foundation", "navigation", "hero", "features", "testimonials", "pricing", "cta", "stats", "logos", "faq", "gallery", "team", "contact", "blog", "showcase"]
+    },
+    "tags": { "type": "array", "items": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" }, "uniqueItems": true },
+    "author": {
+      "type": "object", "additionalProperties": false, "required": ["name"],
+      "properties": { "name": { "type": "string", "minLength": 1 }, "url": { "type": "string", "format": "uri" } }
+    },
+    "license": {
+      "anyOf": [
+        { "type": "string", "const": "dropblocs-pro" },
+        { "type": "string", "pattern": "^[A-Za-z0-9.+-]+$" }
+      ]
+    },
+    "intent": {
+      "type": "object", "additionalProperties": false, "required": ["design", "motion"],
+      "properties": { "design": { "type": "string", "minLength": 1 }, "motion": { "type": "string", "minLength": 1 } }
+    },
+    "files": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "additionalProperties": false, "required": ["path", "type"],
+        "properties": {
+          "path": { "type": "string", "minLength": 1 },
+          "type": { "type": "string", "enum": ["html", "js", "css", "asset"] },
+          "target": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "preview": {
+      "type": "object", "additionalProperties": false, "required": ["image"],
+      "properties": { "image": { "type": "string", "minLength": 1 }, "video": { "type": "string", "minLength": 1 } }
+    },
+    "dependencies": {
+      "type": "object", "additionalProperties": false, "required": ["npm", "blocks", "tokens"],
+      "properties": {
+        "npm": { "type": "array", "items": { "type": "string", "pattern": "^(@[a-z0-9-~][a-z0-9-._~]*/)?[a-z0-9-~][a-z0-9-._~]*@.+$" }, "uniqueItems": true },
+        "blocks": { "type": "array", "items": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*(@[0-9]+\\.[0-9]+\\.[0-9]+)?$" }, "uniqueItems": true },
+        "tokens": { "type": "string", "minLength": 1 }
+      }
+    },
+    "runtime": {
+      "type": "object", "additionalProperties": false, "required": ["globals"],
+      "properties": { "globals": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true } }
+    },
+    "slots": { "$ref": "#/$defs/slotMap" },
+    "tokens": {
+      "type": "object", "additionalProperties": false, "required": ["consumes"],
+      "properties": {
+        "consumes": { "type": "array", "items": { "$ref": "#/$defs/tokenName" }, "uniqueItems": true },
+        "provides": {
+          "type": "array",
+          "items": {
+            "type": "object", "additionalProperties": false, "required": ["name", "default"],
+            "properties": {
+              "name": { "$ref": "#/$defs/tokenName" },
+              "default": { "type": "string", "minLength": 1 },
+              "description": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "motion": {
+      "type": "object", "additionalProperties": false, "required": ["triggers", "reducedMotion", "params"],
+      "properties": {
+        "triggers": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "enum": ["load", "scroll", "scrub", "hover", "click", "inview"] } },
+        "reducedMotion": { "type": "string", "enum": ["static", "fade", "custom"] },
+        "params": {
+          "type": "object",
+          "propertyNames": { "pattern": "^[a-z][A-Za-z0-9]*$" },
+          "additionalProperties": { "$ref": "#/$defs/motionParam" }
+        }
+      }
+    },
+    "usage": {
+      "type": "object", "additionalProperties": false,
+      "required": ["placement", "pairsWith", "avoidWith", "a11y", "doNotChange"],
+      "properties": {
+        "placement": { "$ref": "#/$defs/stringList" },
+        "pairsWith": { "$ref": "#/$defs/blockNameList" },
+        "avoidWith": { "$ref": "#/$defs/blockNameList" },
+        "a11y": { "$ref": "#/$defs/stringList" },
+        "doNotChange": { "$ref": "#/$defs/stringList" }
+      }
+    },
+    "variants": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false, "required": ["name", "description"],
+        "properties": {
+          "name": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+          "description": { "type": "string", "minLength": 1 },
+          "motion": { "type": "object", "additionalProperties": { "type": ["string", "number", "boolean"] } },
+          "slots": {
+            "type": "object",
+            "additionalProperties": { "type": "object", "additionalProperties": false, "required": ["required"], "properties": { "required": { "type": "boolean" } } }
+          }
+        }
+      }
+    },
+    "conversion": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "twig": { "$ref": "#/$defs/conversionTarget" },
+        "blade": { "$ref": "#/$defs/conversionTarget" },
+        "php": { "$ref": "#/$defs/conversionTarget" }
+      }
+    }
+  },
+  "$defs": {
+    "tokenName": { "type": "string", "pattern": "^[a-z]+-db-[a-z0-9]+(-[a-z0-9]+)*$" },
+    "stringList": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "blockNameList": { "type": "array", "items": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" }, "uniqueItems": true },
+    "slotMap": {
+      "type": "object",
+      "propertyNames": { "pattern": "^[a-z][A-Za-z0-9]*$" },
+      "additionalProperties": { "$ref": "#/$defs/slot" }
+    },
+    "slot": {
+      "type": "object", "additionalProperties": false, "required": ["type", "required"],
+      "properties": {
+        "type": { "type": "string", "enum": ["text", "richtext", "image", "video", "link", "list"] },
+        "required": { "type": "boolean" },
+        "description": { "type": "string" },
+        "min": { "type": "integer", "minimum": 0 },
+        "max": { "type": "integer", "minimum": 1 },
+        "slots": { "$ref": "#/$defs/slotMap" }
+      },
+      "if": { "properties": { "type": { "const": "list" } } },
+      "then": { "required": ["slots"] },
+      "else": { "not": { "anyOf": [ { "required": ["slots"] }, { "required": ["min"] }, { "required": ["max"] } ] } }
+    },
+    "motionParam": {
+      "type": "object",
+      "required": ["type", "default"],
+      "properties": {
+        "type": { "type": "string", "enum": ["duration", "easing", "number", "boolean", "enum"] },
+        "locked": { "type": "boolean", "default": false },
+        "description": { "type": "string" }
+      },
+      "allOf": [
+        { "if": { "properties": { "type": { "const": "duration" } } },
+          "then": { "additionalProperties": false, "properties": {
+            "type": {}, "locked": {}, "description": {},
+            "default": { "anyOf": [ { "type": "number", "minimum": 0 }, { "type": "string", "pattern": "^db-[a-z0-9-]+$" } ] },
+            "min": { "type": "number", "minimum": 0 }, "max": { "type": "number", "minimum": 0 } } } },
+        { "if": { "properties": { "type": { "const": "easing" } } },
+          "then": { "additionalProperties": false, "properties": {
+            "type": {}, "locked": {}, "description": {},
+            "default": { "type": "string", "pattern": "^db-[a-z0-9-]+$" } } } },
+        { "if": { "properties": { "type": { "const": "number" } } },
+          "then": { "additionalProperties": false, "properties": {
+            "type": {}, "locked": {}, "description": {},
+            "default": { "type": "number" }, "min": { "type": "number" }, "max": { "type": "number" } } } },
+        { "if": { "properties": { "type": { "const": "boolean" } } },
+          "then": { "additionalProperties": false, "properties": {
+            "type": {}, "locked": {}, "description": {},
+            "default": { "type": "boolean" } } } },
+        { "if": { "properties": { "type": { "const": "enum" } } },
+          "then": { "additionalProperties": false, "required": ["values"], "properties": {
+            "type": {}, "locked": {}, "description": {},
+            "default": { "type": "string" },
+            "values": { "type": "array", "minItems": 2, "uniqueItems": true, "items": { "type": "string" } } } } }
+      ]
+    },
+    "conversionTarget": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "notes": { "$ref": "#/$defs/stringList" },
+        "slots": { "type": "object", "propertyNames": { "pattern": "^[a-z][A-Za-z0-9]*$" }, "additionalProperties": { "type": "string", "minLength": 1 } }
+      }
+    }
+  }
+}

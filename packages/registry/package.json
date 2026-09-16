@@ -5,6 +5,14 @@
   "description": "Dropblocs blocks and manifests (canonical HTML + Alpine + GSAP + Tailwind).",
   "type": "module",
   "files": [
-    "blocks"
-  ]
+    "blocks",
+    "schema"
+  ],
+  "scripts": {
+    "validate": "node scripts/validate.js"
+  },
+  "devDependencies": {
+    "ajv": "^8.17.0",
+    "ajv-formats": "^3.0.0"
+  }
 }

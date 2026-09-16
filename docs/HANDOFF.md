@@ -57,7 +57,7 @@ Tested code + a manifest containing: identity (name/category/version), dependenc
 ## Roadmap
 
 - **V1 — "the system exists"** (free, public): tokens + motion system → manifest spec v1 → registry + CLI → preview site → first ~10 blocks. NOT in V1: brandify, WP, payments, community platform, MCP.
-- **V1.1 — "the hype moment"**: MCP server ships; killer demo content.
+- **V1.1 — "the hype moment"**: MCP server ships; killer demo content. Plan for **WebMCP** alongside it (the site registers `search_blocks` / `get_block` tools via `navigator.modelContext` over the same registry JSON). The manifest spec already requires a one-line `summary` and tool-shaped sections for this.
 - **V2 — "the product"**: full 25+ blocks, brandify, paid layer flips on (Kits + Pro), designer drops, WordPress via conversion rules, community.
 - **V3 — "the infrastructure"**: format-agnostic core matures; agents as metered customers via MCP.
 - Failure mode at any stage: fold the system into day-job tooling (Craft starter, agency workflows) as private R&D.
@@ -80,9 +80,10 @@ dropblocs/
 
 ## Immediate next actions (in order)
 
-1. Scaffold the monorepo structure above.
-2. Brand pass: wordmark, default token values, motion feel (named easings, duration scale).
-3. **Manifest spec v1** — run `grill-with-docs` on this; produce the spec + ADRs + glossary in `docs/`.
+1. ~~Scaffold the monorepo structure above.~~ Done 2026-09-16.
+2. ~~**Manifest spec v1**~~ Done 2026-09-16: `docs/manifest-spec.md`, `packages/registry/schema/manifest.schema.json`, `CONTEXT.md` glossary, ADRs 0001–0006. Validate with `npm run validate -w packages/registry`.
+3. Brand pass: wordmark, default token values, motion feel. The Token Layer must expose at least the names the spec uses: `color-db-*`, `font-db-*`, `radius-db-*`, `duration-db-{fast,base,slow}`, `ease-db-*`.
+3a. Write `docs/conversion-rules.md` (plain Twig) and the `madebyshape-craft` Starter Profile. Conversion target is the **public** madebyshape/craft-cms starter only.
 4. Build the 5 foundation pieces privately into the site playground.
 5. First hero + first content batch → go public.
 6. **Week-one risk test**: hand Claude a block + manifest, have it convert HTML→Twig into the madebyshape/craft-cms starter. Validates the agent-conversion bet while it's cheap to change.
