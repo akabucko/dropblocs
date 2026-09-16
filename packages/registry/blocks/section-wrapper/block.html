@@ -1,0 +1,21 @@
+<!--
+  section-wrapper
+  Root carries the variant and motion params as data attributes.
+  Direct children of the inner container are the reveal targets.
+-->
+<section
+  x-data="sectionWrapper"
+  data-block="section-wrapper"
+  data-variant=""
+  data-motion-reveal="true"
+  data-motion-reveal-distance="24"
+  data-motion-reveal-stagger="0.06"
+  class="bg-db-bg text-db-fg py-db-section px-6 lg:px-10 data-[variant=contrast]:bg-db-contrast data-[variant=contrast]:text-db-on-contrast data-[variant=flush]:py-0"
+>
+  <div class="mx-auto w-full max-w-7xl" data-reveal-group>
+    <!-- demo content, replaced by the wrapped block's content -->
+    <p class="text-sm uppercase tracking-widest opacity-60">Section wrapper</p>
+    <h2 class="mt-3 font-db-display text-4xl font-semibold tracking-tight">Everything sits inside one of these.</h2>
+    <p class="mt-4 max-w-prose text-lg">Fluid vertical rhythm from a single token, content held on the site margins, and a quiet settle-in the first time it scrolls into view.</p>
+  </div>
+</section>

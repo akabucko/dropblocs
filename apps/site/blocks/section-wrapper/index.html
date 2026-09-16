@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>section-wrapper · Dropblocs</title>
+    <link rel="stylesheet" href="/src/style.css" />
+    <script type="module" src="/src/main.js"></script>
+  </head>
+  <body class="bg-db-bg text-db-fg font-db-sans antialiased">
+    <div class="h-[60vh] flex items-end px-6 lg:px-10 pb-8 text-db-muted text-sm">Scroll to see the reveal ↓</div>
+    <!-- @block section-wrapper -->
+    <div class="h-[40vh]"></div>
+    <!-- @block section-wrapper -->
+    <script>
+      // Second instance demonstrates the contrast variant.
+      document.querySelectorAll('[data-block="section-wrapper"]')[1]?.setAttribute('data-variant', 'contrast');
+    </script>
+  </body>
+</html>

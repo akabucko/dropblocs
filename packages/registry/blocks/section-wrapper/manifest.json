@@ -1,0 +1,74 @@
+{
+  "$schema": "https://dropblocs.com/schema/manifest.schema.json",
+  "spec": "1.0",
+  "name": "section-wrapper",
+  "version": "0.1.0",
+  "title": "Section Wrapper",
+  "summary": "The page-section container every block sits in: fluid vertical rhythm, site margins, and a quiet reveal on scroll.",
+  "category": "foundation",
+  "tags": ["layout", "reveal", "scroll-driven"],
+  "author": { "name": "Joe Buckley", "url": "https://dropblocs.com" },
+  "license": "MIT",
+  "intent": {
+    "design": "Invisible when it works. It sets the vertical rhythm of a page with one fluid padding token and keeps content on the site margins. Nothing about it should be noticed; it exists so every other block agrees on spacing, width and background handling. The contrast variant is how a page gets a dark band without any block knowing.",
+    "motion": "Content rises a few pixels and fades in once, the first time the section enters the viewport, with children staggered so the eye reads top to bottom. It is a settle, not an entrance. If a viewer can name the effect it is too much, so distance and stagger are small and the easing is the standard enter curve."
+  },
+  "files": [
+    { "path": "block.html", "type": "html", "target": "{blocksDir}/section-wrapper/block.html" },
+    { "path": "block.js", "type": "js", "target": "{blocksDir}/section-wrapper/block.js" },
+    { "path": "preview.webp", "type": "asset" }
+  ],
+  "preview": { "image": "preview.webp" },
+  "dependencies": {
+    "npm": ["gsap@^3.13", "alpinejs@^3.14"],
+    "blocks": [],
+    "tokens": "^0.1.0"
+  },
+  "runtime": { "globals": ["gsap", "ScrollTrigger", "Alpine"] },
+  "slots": {},
+  "tokens": {
+    "consumes": [
+      "color-db-bg", "color-db-fg", "color-db-contrast", "color-db-on-contrast",
+      "spacing-db-section", "duration-db-base", "ease-db-enter"
+    ]
+  },
+  "motion": {
+    "triggers": ["inview"],
+    "reducedMotion": "fade",
+    "params": {
+      "reveal": { "type": "boolean", "default": true, "description": "Reveal children on first entry into the viewport" },
+      "revealDuration": { "type": "duration", "default": "db-base", "min": 200, "max": 900, "description": "Length of each child's reveal" },
+      "revealEase": { "type": "easing", "default": "db-enter", "locked": true },
+      "revealDistance": { "type": "number", "default": 24, "min": 0, "max": 48, "description": "Pixels each child rises from" },
+      "revealStagger": { "type": "number", "default": 0.06, "min": 0, "max": 0.15, "description": "Seconds between children" }
+    }
+  },
+  "usage": {
+    "placement": [
+      "Wraps the content of every other block; blocks do not set their own vertical padding or site margins",
+      "Consecutive sections share the same background unless one uses the contrast variant"
+    ],
+    "pairsWith": [],
+    "avoidWith": [],
+    "a11y": [
+      "Renders a landmark section element; add aria-labelledby pointing at the block heading when one exists",
+      "Reveal collapses to a fade with no movement under prefers-reduced-motion"
+    ],
+    "doNotChange": [
+      "The single fluid padding token; do not replace it with fixed breakpoints",
+      "The reveal fires once; it must never replay on scroll up"
+    ]
+  },
+  "variants": [
+    { "name": "contrast", "description": "Inverted colours for a dark band; children inherit the on-contrast text colour" },
+    { "name": "flush", "description": "No vertical padding, for full-bleed blocks that manage their own rhythm" }
+  ],
+  "conversion": {
+    "twig": {
+      "notes": [
+        "This is a foundation piece, not a Matrix block. Convert it to templates/_components/section.twig as an embed exposing a `content` block, and have other converted blocks embed it instead of adding their own padding",
+        "Pass variant through a params map: {% embed '_components/section' with { variant: 'contrast' } %}"
+      ]
+    }
+  }
+}
