@@ -1,0 +1,4 @@
+@import "tailwindcss";
+@import "@dropblocs/tokens/tokens.css";
+
+@source "../../../packages/registry/blocks";

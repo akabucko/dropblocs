@@ -1,0 +1,19 @@
+{
+  "name": "dropblocs",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Drop-in animated UI blocks your AI agent can actually use.",
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w apps/site",
+    "build": "npm run build -w apps/site",
+    "preview": "npm run preview -w apps/site"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

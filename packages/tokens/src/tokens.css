@@ -1,0 +1,22 @@
+/* Dropblocs token layer — placeholder values pending the brand pass. */
+@theme {
+  /* color */
+  --color-db-bg: #ffffff;
+  --color-db-fg: #0a0a0a;
+  --color-db-accent: #0a0a0a;
+
+  /* type */
+  --font-db-sans: ui-sans-serif, system-ui, sans-serif;
+
+  /* radius */
+  --radius-db: 0.5rem;
+
+  /* motion: durations */
+  --duration-db-fast: 200ms;
+  --duration-db-base: 400ms;
+  --duration-db-slow: 800ms;
+
+  /* motion: easings */
+  --ease-db-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-db-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
