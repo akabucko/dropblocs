@@ -153,7 +153,7 @@ A Slot is a typed content region. Its type doubles as the CMS field mapping duri
 
 ```json
 "tokens": {
-  "consumes": ["color-db-bg", "color-db-fg", "font-db-sans", "duration-db-base", "ease-db-out"],
+  "consumes": ["color-db-bg", "color-db-fg", "font-db-sans", "duration-db-base", "ease-db-enter"],
   "provides": [
     { "name": "color-db-hero-glow", "default": "#ff6a00", "description": "Radial glow behind the heading" }
   ]
@@ -173,7 +173,7 @@ A Slot is a typed content region. Its type doubles as the CMS field mapping duri
   "reducedMotion": "fade",
   "params": {
     "revealDuration": { "type": "duration", "default": "db-base", "min": 200, "max": 1200, "locked": false, "description": "Heading reveal length" },
-    "revealEase":     { "type": "easing",   "default": "db-out", "locked": true },
+    "revealEase":     { "type": "easing",   "default": "db-enter", "locked": true },
     "stagger":        { "type": "number",   "default": 0.08, "min": 0.02, "max": 0.2, "locked": false, "description": "Seconds between heading words" },
     "parallaxAmount": { "type": "number",   "default": 0.15, "min": 0, "max": 0.4, "locked": true },
     "loop":           { "type": "boolean",  "default": false },
@@ -185,7 +185,7 @@ A Slot is a typed content region. Its type doubles as the CMS field mapping duri
 - `triggers`: one or more of `load`, `scroll`, `scrub`, `hover`, `click`, `inview`. Structural, never tunable. `scrub` is called out separately because scrub animations interact badly with smooth-scroll libraries and an agent must be able to see that without reading code.
 - `reducedMotion`: required. `static` (final state, no animation), `fade` (crossfade only) or `custom` (the block ships its own reduced variant).
 - `params`: named knobs. Types:
-  - `duration`: milliseconds. `default` is a Token Layer duration name (`db-fast`, `db-base`, `db-slow`) or a number. `min` and `max` in ms bound any override.
+  - `duration`: milliseconds. `default` is a Token Layer duration name (`db-instant`, `db-fast`, `db-snappy`, `db-base`, `db-slow`, `db-glacial`) or a number. `min` and `max` in ms bound any override.
   - `easing`: `default` is a Token Layer easing name. Raw cubic-beziers are never accepted; this keeps the motion language coherent.
   - `number`: generic, with `min` and `max`.
   - `boolean`.

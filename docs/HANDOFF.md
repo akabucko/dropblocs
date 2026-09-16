@@ -82,7 +82,8 @@ dropblocs/
 
 1. ~~Scaffold the monorepo structure above.~~ Done 2026-09-16.
 2. ~~**Manifest spec v1**~~ Done 2026-09-16: `docs/manifest-spec.md`, `packages/registry/schema/manifest.schema.json`, `CONTEXT.md` glossary, ADRs 0001–0006. Validate with `npm run validate -w packages/registry`.
-3. Brand pass: wordmark, default token values, motion feel. The Token Layer must expose at least the names the spec uses: `color-db-*`, `font-db-*`, `radius-db-*`, `duration-db-{fast,base,slow}`, `ease-db-*`.
+3. ~~Token Layer v0.1~~ Done 2026-09-16: `packages/tokens/src/tokens.css` + `motion.js` (ADR 0007). Colour roles, system font stacks, 4 radii, `spacing-db-section`, 6 durations, 4 role-named easings. Green accent for now.
+3b. Brand pass remaining: wordmark (type-only, lowercase, motion signature on `db-enter`) and real font faces for `font-db-sans` / `font-db-display`.
 3a. Write `docs/conversion-rules.md` (plain Twig) and the `madebyshape-craft` Starter Profile. Conversion target is the **public** madebyshape/craft-cms starter only.
 4. Build the 5 foundation pieces privately into the site playground.
 5. First hero + first content batch → go public.

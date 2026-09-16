@@ -7,8 +7,14 @@
     <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body class="bg-db-bg text-db-fg font-db-sans antialiased">
-    <main class="min-h-screen flex items-center justify-center p-8" x-data>
-      <h1 class="text-4xl font-semibold">Dropblocs</h1>
+    <main class="min-h-screen flex items-center justify-center py-db-section px-6">
+      <h1
+        class="font-db-display text-5xl font-semibold tracking-tight opacity-0"
+        x-data
+        x-init="gsap.to($el, { opacity: 1, y: 0, duration: 0.4, ease: 'db-enter' }); gsap.set($el, { y: 12 })"
+      >
+        dropblocs<span class="text-db-accent">.</span>
+      </h1>
     </main>
     <script type="module" src="/src/main.js"></script>
   </body>

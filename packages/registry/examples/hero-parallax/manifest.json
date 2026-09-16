@@ -40,7 +40,7 @@
     }
   },
   "tokens": {
-    "consumes": ["color-db-bg", "color-db-fg", "font-db-sans", "duration-db-base", "ease-db-out"],
+    "consumes": ["color-db-bg", "color-db-fg", "font-db-sans", "duration-db-base", "ease-db-enter"],
     "provides": [
       { "name": "color-db-hero-glow", "default": "#ff6a00", "description": "Radial glow behind the heading" }
     ]
@@ -50,7 +50,7 @@
     "reducedMotion": "fade",
     "params": {
       "revealDuration": { "type": "duration", "default": "db-base", "min": 200, "max": 1200, "description": "Heading reveal length" },
-      "revealEase": { "type": "easing", "default": "db-out", "locked": true },
+      "revealEase": { "type": "easing", "default": "db-enter", "locked": true },
       "stagger": { "type": "number", "default": 0.08, "min": 0.02, "max": 0.2, "description": "Seconds between heading words" },
       "parallaxAmount": { "type": "number", "default": 0.15, "min": 0, "max": 0.4, "locked": true },
       "direction": { "type": "enum", "default": "up", "values": ["up", "down"] }

@@ -1,22 +1,45 @@
-/* Dropblocs token layer — placeholder values pending the brand pass. */
-@theme {
-  /* color */
-  --color-db-bg: #ffffff;
-  --color-db-fg: #0a0a0a;
-  --color-db-accent: #0a0a0a;
+/*
+ * Dropblocs Token Layer v0.1
+ * Every block consumes only these names. Values are the product defaults;
+ * a project retunes them in its bridge file (dropblocs.css), never here.
+ * Names must match packages/tokens/src/motion.js and docs/manifest-spec.md.
+ */
+@theme static {
+  /* colour: near-monochrome warm neutrals, one green accent, one inverted pair */
+  --color-db-bg: oklch(0.985 0.004 80);
+  --color-db-fg: oklch(0.18 0.01 80);
+  --color-db-muted: oklch(0.55 0.012 80);
+  --color-db-surface: oklch(0.955 0.006 80);
+  --color-db-border: oklch(0.88 0.008 80);
+  --color-db-accent: oklch(0.72 0.19 150);
+  --color-db-on-accent: oklch(0.15 0.03 150);
+  --color-db-contrast: oklch(0.18 0.01 80);
+  --color-db-on-contrast: oklch(0.985 0.004 80);
 
-  /* type */
-  --font-db-sans: ui-sans-serif, system-ui, sans-serif;
+  /* font family: system stacks until the brand pass picks faces */
+  --font-db-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-db-display: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 
   /* radius */
+  --radius-db-sm: 0.25rem;
   --radius-db: 0.5rem;
+  --radius-db-lg: 1rem;
+  --radius-db-full: 9999px;
 
-  /* motion: durations */
+  /* spacing: the one fluid token, consumed by the section wrapper */
+  --spacing-db-section: clamp(4rem, 3rem + 5vw, 8rem);
+
+  /* motion: duration scale */
+  --duration-db-instant: 100ms;
   --duration-db-fast: 200ms;
+  --duration-db-snappy: 300ms;
   --duration-db-base: 400ms;
-  --duration-db-slow: 800ms;
+  --duration-db-slow: 700ms;
+  --duration-db-glacial: 1200ms;
 
-  /* motion: easings */
-  --ease-db-out: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-db-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  /* motion: easings named by role, not by curve */
+  --ease-db-enter: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-db-exit: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-db-move: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-db-emphasis: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
