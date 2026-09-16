@@ -80,6 +80,8 @@ Both required. Both prose. These are the only prose fields; an agent converting 
 - `type`: `html`, `js`, `css` or `asset`.
 - `target`: where the CLI writes the file in the project. `{blocksDir}` resolves from `dropblocs.json`. Files without a `target` (assets) are not installed unless the project asks.
 
+`block.js`, when present, registers one Alpine component named after the block's camelCase handle on the `alpine:init` event, uses only the globals in `runtime`, and exports nothing. This shape is what lets conversion copy it into a CMS project unchanged (see `docs/conversion-rules.md`).
+
 Block folder layout on disk:
 
 ```
