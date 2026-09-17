@@ -1,0 +1,102 @@
+{
+  "$schema": "https://dropblocs.com/schema/manifest.schema.json",
+  "spec": "1.0",
+  "name": "footer",
+  "version": "0.1.0",
+  "title": "Footer",
+  "summary": "Site footer with link groups, a legal row, and a large wordmark that rises into view as the page ends.",
+  "category": "navigation",
+  "tags": ["foundation", "reveal", "scroll-driven", "wordmark"],
+  "author": { "name": "Joe Buckley", "url": "https://dropblocs.com" },
+  "license": "MIT",
+  "intent": {
+    "design": "The page's last word, so it is allowed one flourish: the wordmark set very large along the bottom edge, cropped so it feels like it continues below the fold. Everything above it is plain and orderly: brand and tagline on the left, up to four columns of small links on the right, one hairline, then copyright, legal links and a way back up. It works on the page background with a top border, or as a contrast band that closes the page in ink.",
+    "motion": "The columns settle in with the same reveal as any section, and a beat later the big wordmark rises out of its crop on the enter curve, slower than anything else on the page because it is the one thing here with mass. It plays once. Nothing else moves except link underlines and the back-to-top arrow. If the wordmark bounces, overshoots or replays, the ending is ruined."
+  },
+  "files": [
+    { "path": "block.html", "type": "html", "target": "{blocksDir}/footer/block.html" },
+    { "path": "block.js", "type": "js", "target": "{blocksDir}/footer/block.js" },
+    { "path": "preview.webp", "type": "asset" }
+  ],
+  "preview": { "image": "preview.webp" },
+  "dependencies": {
+    "npm": ["gsap@^3.13", "alpinejs@^3.14"],
+    "blocks": [],
+    "tokens": "^0.1.0"
+  },
+  "runtime": { "globals": ["gsap", "ScrollTrigger", "Alpine"] },
+  "slots": {
+    "brand": { "type": "text", "required": true, "description": "Site name, linking home" },
+    "tagline": { "type": "text", "required": false, "description": "One line under the brand" },
+    "groups": {
+      "type": "list", "required": true, "min": 1, "max": 4,
+      "description": "Link columns",
+      "slots": {
+        "heading": { "type": "text", "required": true },
+        "links": {
+          "type": "list", "required": true, "min": 1, "max": 8,
+          "slots": { "link": { "type": "link", "required": true } }
+        }
+      }
+    },
+    "copyright": { "type": "text", "required": false, "description": "Copyright line; the year is filled in by the block" },
+    "legal": {
+      "type": "list", "required": false, "max": 4,
+      "slots": { "link": { "type": "link", "required": true } }
+    }
+  },
+  "tokens": {
+    "consumes": [
+      "color-db-bg", "color-db-fg", "color-db-border", "color-db-accent",
+      "color-db-contrast", "color-db-on-contrast", "font-db-display", "spacing-db-section",
+      "duration-db-fast", "duration-db-snappy", "duration-db-base", "duration-db-slow",
+      "ease-db-enter", "ease-db-move", "ease-db-emphasis"
+    ]
+  },
+  "motion": {
+    "triggers": ["inview", "hover", "click"],
+    "reducedMotion": "fade",
+    "params": {
+      "reveal": { "type": "boolean", "default": true, "description": "Settle the columns in on first entry into the viewport" },
+      "revealDuration": { "type": "duration", "default": "db-base", "min": 200, "max": 900, "description": "Length of each column's reveal" },
+      "revealStagger": { "type": "number", "default": 0.06, "min": 0, "max": 0.15, "description": "Seconds between columns" },
+      "wordmark": { "type": "boolean", "default": true, "description": "Rise the large wordmark out of its crop" },
+      "wordmarkDuration": { "type": "duration", "default": "db-slow", "min": 500, "max": 1200, "description": "Length of the wordmark rise" },
+      "wordmarkEase": { "type": "easing", "default": "db-enter", "locked": true }
+    }
+  },
+  "usage": {
+    "placement": [
+      "Last element in the body, after every section; exactly one per page",
+      "Use the contrast variant when the last section is on the page background, so the page ends on a change",
+      "Four link groups at most, eight links each"
+    ],
+    "pairsWith": ["nav", "section-wrapper", "buttons-links"],
+    "avoidWith": [],
+    "a11y": [
+      "Renders a footer landmark containing a nav landmark labelled Footer",
+      "The large wordmark is aria-hidden; the brand link carries the name",
+      "Back to top is a button that scrolls the window and respects prefers-reduced-motion by jumping instead of scrolling",
+      "Reveal and wordmark rise collapse to fades under prefers-reduced-motion",
+      "Focus-visible outlines are never animated"
+    ],
+    "doNotChange": [
+      "The reveal and wordmark rise fire once and never replay on scroll up",
+      "The wordmark is cropped by its wrapper and sits flush to the bottom edge; do not add padding beneath it",
+      "Link recipes are copied verbatim from buttons-links; change them there or nowhere",
+      "The wordmark uses the enter curve, never emphasis"
+    ]
+  },
+  "variants": [
+    { "name": "contrast", "description": "Inverted colours so the page closes on an ink band; the top border is dropped" }
+  ],
+  "conversion": {
+    "twig": {
+      "notes": [
+        "This is a foundation piece, not a Matrix block. Convert it to templates/_components/footer.twig and include it once from the layout's body, after the page content",
+        "Source slots from a footer Global Set with the same handles; groups is a Matrix whose entry type holds heading and a nested links Matrix (Craft 5 supports nested Matrix)",
+        "The copyright year is rendered by Alpine in the canonical block; in Twig output {{ 'now'|date('Y') }} instead and drop the x-text span"
+      ]
+    }
+  }
+}

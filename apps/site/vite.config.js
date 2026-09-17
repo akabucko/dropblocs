@@ -8,8 +8,24 @@ const registry = resolve(__dirname, '../../packages/registry/blocks');
 /**
  * Registry blocks plugin.
  * `<!-- @block name -->` in any page is replaced with that block's block.html,
- * and its block.js (if any) is imported so the Alpine component registers.
+ * and its block.js (if any) is inlined so the Alpine component registers.
+ * Blocks listed under `dependencies.blocks` in a used block's manifest get their
+ * block.js inlined too, mirroring the CLI's recursive install.
  */
+function withDependencies(names) {
+  const all = new Set();
+  const visit = (name) => {
+    if (all.has(name)) return;
+    all.add(name);
+    const manifest = resolve(registry, name, 'manifest.json');
+    if (!existsSync(manifest)) return;
+    for (const dep of JSON.parse(readFileSync(manifest, 'utf8')).dependencies?.blocks ?? []) {
+      visit(dep.split('@')[0]);
+    }
+  };
+  names.forEach(visit);
+  return [...all];
+}
 function registryBlocks() {
   return {
     name: 'dropblocs-registry-blocks',
@@ -21,7 +37,7 @@ function registryBlocks() {
         used.add(name);
         return readFileSync(file, 'utf8');
       });
-      const tags = [...used]
+      const tags = withDependencies([...used])
         .filter((name) => existsSync(resolve(registry, name, 'block.js')))
         .map((name) => ({
           tag: 'script',

@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>footer · Dropblocs</title>
+    <link rel="stylesheet" href="/src/style.css" />
+    <script type="module" src="/src/main.js"></script>
+  </head>
+  <body class="bg-db-bg text-db-fg font-db-sans antialiased">
+    <div class="flex h-[120vh] items-end px-6 pb-8 text-sm text-db-muted lg:px-10">Scroll to see the footer reveal ↓</div>
+    <!-- @block footer -->
+    <div class="h-[40vh]"></div>
+    <!-- @block footer -->
+    <script>
+      // Second instance demonstrates the contrast variant.
+      document.querySelectorAll('[data-block="footer"]')[1]?.setAttribute('data-variant', 'contrast');
+    </script>
+  </body>
+</html>

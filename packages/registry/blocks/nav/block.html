@@ -1,0 +1,64 @@
+<!--
+  nav
+  Sticky site header. Root carries the variant and motion params as data attributes.
+  One nav element holds the items and CTA: a row on large screens, a full-height panel below.
+  Items use the buttons-links underline recipe and the CTA the solid recipe, verbatim.
+-->
+<header
+  x-data="nav"
+  data-block="nav"
+  data-variant=""
+  data-motion-reveal-on-load="true"
+  data-motion-hide-on-scroll="true"
+  data-motion-menu-stagger="0.05"
+  :data-scrolled="scrolled || null"
+  :data-open="open || null"
+  @keydown.escape.window="close()"
+  class="sticky top-0 z-50 w-full bg-db-bg text-db-fg transition-[background-color,border-color] duration-(--duration-db-snappy) ease-db-move border-b border-transparent data-scrolled:border-db-border data-scrolled:bg-db-bg/85 data-scrolled:backdrop-blur-md data-[variant=overlay]:fixed data-[variant=overlay]:bg-transparent data-[variant=overlay]:data-scrolled:bg-db-bg/85"
+>
+  <div class="mx-auto flex w-full max-w-7xl items-center justify-between gap-6 px-6 py-4 lg:px-10" data-reveal-group>
+    <a href="/" data-slot="brand" class="font-db-display text-xl font-semibold tracking-tight focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-db-accent">
+      dropblocs<span class="text-db-accent">.</span>
+    </a>
+
+    <button
+      type="button"
+      class="relative -mr-2 flex size-10 items-center justify-center rounded-db-full text-db-fg hover:bg-current/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-db-accent lg:hidden"
+      :aria-expanded="open"
+      aria-controls="nav-menu"
+      @click="toggle()"
+    >
+      <span class="sr-only" x-text="open ? 'Close menu' : 'Open menu'">Open menu</span>
+      <span class="absolute h-px w-5 bg-current transition-transform duration-(--duration-db-snappy) ease-db-move" :class="open ? 'rotate-45' : '-translate-y-1'" aria-hidden="true"></span>
+      <span class="absolute h-px w-5 bg-current transition-transform duration-(--duration-db-snappy) ease-db-move" :class="open ? '-rotate-45' : 'translate-y-1'" aria-hidden="true"></span>
+    </button>
+
+    <nav
+      id="nav-menu"
+      data-menu
+      x-data="buttonsLinks"
+      aria-label="Main"
+      :inert="!open && !desktop"
+      class="absolute inset-x-0 top-full flex h-[calc(100dvh-100%)] flex-col justify-center gap-8 overflow-y-auto bg-db-bg px-6 text-db-fg lg:static lg:h-auto lg:flex-row lg:items-center lg:justify-end lg:gap-8 lg:overflow-visible lg:bg-transparent lg:px-0"
+    >
+      <ul data-slot="items" class="flex flex-col gap-6 lg:flex-row lg:items-center lg:gap-8" data-menu-group>
+        <li><a href="#" data-slot="link" class="bg-[linear-gradient(currentColor,currentColor)] bg-size-[0%_1px] bg-right-bottom bg-no-repeat pb-px text-3xl font-medium transition-[background-size] duration-(--duration-db-snappy) ease-db-move hover:bg-size-[100%_1px] hover:bg-left-bottom focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-db-accent motion-reduce:transition-none lg:text-sm">Blocks</a></li>
+        <li><a href="#" data-slot="link" class="bg-[linear-gradient(currentColor,currentColor)] bg-size-[0%_1px] bg-right-bottom bg-no-repeat pb-px text-3xl font-medium transition-[background-size] duration-(--duration-db-snappy) ease-db-move hover:bg-size-[100%_1px] hover:bg-left-bottom focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-db-accent motion-reduce:transition-none lg:text-sm">Kits</a></li>
+        <li><a href="#" data-slot="link" class="bg-[linear-gradient(currentColor,currentColor)] bg-size-[0%_1px] bg-right-bottom bg-no-repeat pb-px text-3xl font-medium transition-[background-size] duration-(--duration-db-snappy) ease-db-move hover:bg-size-[100%_1px] hover:bg-left-bottom focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-db-accent motion-reduce:transition-none lg:text-sm">Docs</a></li>
+        <li><a href="#" data-slot="link" class="bg-[linear-gradient(currentColor,currentColor)] bg-size-[0%_1px] bg-right-bottom bg-no-repeat pb-px text-3xl font-medium transition-[background-size] duration-(--duration-db-snappy) ease-db-move hover:bg-size-[100%_1px] hover:bg-left-bottom focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-db-accent motion-reduce:transition-none lg:text-sm">Pricing</a></li>
+      </ul>
+      <div data-menu-group>
+        <a
+          href="#"
+          data-slot="cta"
+          data-variant="solid"
+          data-press
+          class="group inline-flex items-center justify-center gap-2 rounded-db-full bg-db-fg px-5 py-3 text-sm font-medium text-db-bg transition-colors duration-(--duration-db-fast) ease-db-move hover:bg-db-accent hover:text-db-on-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-db-accent in-data-[variant=contrast]:bg-db-on-contrast in-data-[variant=contrast]:text-db-contrast"
+        >
+          Get started
+          <svg class="size-4 transition-transform duration-(--duration-db-fast) ease-db-emphasis group-hover:translate-x-0.5 motion-reduce:transition-none" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </a>
+      </div>
+    </nav>
+  </div>
+</header>

@@ -1,0 +1,97 @@
+{
+  "$schema": "https://dropblocs.com/schema/manifest.schema.json",
+  "spec": "1.0",
+  "name": "nav",
+  "version": "0.1.0",
+  "title": "Nav",
+  "summary": "Sticky site header that steps aside as you read down and returns as you scroll up, with a full-height mobile menu.",
+  "category": "navigation",
+  "tags": ["foundation", "sticky", "scroll-driven", "mobile-menu"],
+  "author": { "name": "Joe Buckley", "url": "https://dropblocs.com" },
+  "license": "MIT",
+  "intent": {
+    "design": "A single quiet bar: wordmark left, links and one primary action right. It is transparent against the page until you scroll, then gains a translucent surface and a hairline so it reads as a layer over content rather than part of it. Below the large breakpoint the same links become a full-height panel with big type, so the menu feels like a page of its own, not a dropdown. Nothing in it competes with the hero beneath.",
+    "motion": "Three moves and no more. On load the bar settles in from just above. On scroll it hides when you read down and returns the moment you scroll up, with the firm move curve so it feels like a shutter, not a fade. The menu panel arrives with its links staggered upward on the enter curve and leaves faster than it came. Items use the underline draw and the action the button spring from buttons-links, so the nav teaches the site's interaction language before anything else does."
+  },
+  "files": [
+    { "path": "block.html", "type": "html", "target": "{blocksDir}/nav/block.html" },
+    { "path": "block.js", "type": "js", "target": "{blocksDir}/nav/block.js" },
+    { "path": "preview.webp", "type": "asset" }
+  ],
+  "preview": { "image": "preview.webp" },
+  "dependencies": {
+    "npm": ["gsap@^3.13", "alpinejs@^3.14"],
+    "blocks": ["buttons-links"],
+    "tokens": "^0.1.0"
+  },
+  "runtime": { "globals": ["gsap", "ScrollTrigger", "Alpine"] },
+  "slots": {
+    "brand": { "type": "text", "required": true, "description": "Site name rendered as the wordmark, linking home" },
+    "items": {
+      "type": "list", "required": true, "min": 1, "max": 6,
+      "slots": {
+        "link": { "type": "link", "required": true }
+      }
+    },
+    "cta": { "type": "link", "required": false, "description": "The one primary action, rendered as a solid button" }
+  },
+  "tokens": {
+    "consumes": [
+      "color-db-bg", "color-db-fg", "color-db-border", "color-db-accent", "color-db-on-accent",
+      "color-db-contrast", "color-db-on-contrast", "font-db-display", "radius-db-full",
+      "duration-db-fast", "duration-db-snappy", "duration-db-base",
+      "ease-db-enter", "ease-db-move", "ease-db-emphasis"
+    ]
+  },
+  "motion": {
+    "triggers": ["load", "scroll", "click", "hover"],
+    "reducedMotion": "fade",
+    "params": {
+      "revealOnLoad": { "type": "boolean", "default": true, "description": "Settle the bar in from above on page load" },
+      "hideOnScroll": { "type": "boolean", "default": true, "description": "Hide when scrolling down past the bar's own height, return on scroll up" },
+      "hideDuration": { "type": "duration", "default": "db-snappy", "min": 200, "max": 500, "description": "Length of the hide and return" },
+      "hideEase": { "type": "easing", "default": "db-move", "locked": true },
+      "menuDuration": { "type": "duration", "default": "db-base", "min": 300, "max": 700, "description": "Length of each menu item's arrival and the load reveal" },
+      "menuStagger": { "type": "number", "default": 0.05, "min": 0, "max": 0.12, "description": "Seconds between menu items" },
+      "menuEase": { "type": "easing", "default": "db-enter", "locked": true }
+    }
+  },
+  "usage": {
+    "placement": [
+      "First element in the body, before any section; exactly one per page",
+      "Use the overlay variant when the first block is a full-bleed hero that should run under the bar",
+      "Six items at most; more belongs in the footer"
+    ],
+    "pairsWith": ["buttons-links", "section-wrapper", "footer"],
+    "avoidWith": [],
+    "a11y": [
+      "Renders a header landmark containing a nav landmark labelled Main",
+      "The menu button carries aria-expanded and aria-controls; its label switches between Open menu and Close menu",
+      "The panel is inert while closed so its links are not tabbable off screen; Escape closes it and body scroll is locked while open",
+      "Load reveal, hide and menu collapse to fades under prefers-reduced-motion",
+      "Focus-visible outlines are never animated"
+    ],
+    "doNotChange": [
+      "The hide starts only after scrolling past the bar's own height so it never flickers near the top",
+      "The bar never hides while the menu is open",
+      "The menu leaves faster than it arrives",
+      "Item and CTA recipes are copied verbatim from buttons-links; change them there or nowhere"
+    ]
+  },
+  "variants": [
+    { "name": "overlay", "description": "Fixed over the first block with no background until scrolled, for pages that open on a full-bleed hero" }
+  ],
+  "conversion": {
+    "twig": {
+      "notes": [
+        "This is a foundation piece, not a Matrix block. Convert it to templates/_components/nav.twig and include it once from the layout's body, above the page content",
+        "Source slots from a nav Global Set with the same handles rather than from the entry; brand is usually the site name",
+        "The items list renders once: the same nav element is the row on large screens and the panel below, so do not duplicate the loop for mobile",
+        "Keep the nested x-data=\"buttonsLinks\" on the nav element; it is what gives the CTA its press feedback"
+      ],
+      "slots": {
+        "cta": "Render through _components/button.twig with variant solid and arrow on"
+      }
+    }
+  }
+}
