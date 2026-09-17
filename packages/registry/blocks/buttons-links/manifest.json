@@ -1,0 +1,90 @@
+{
+  "$schema": "https://dropblocs.com/schema/manifest.schema.json",
+  "spec": "1.0",
+  "name": "buttons-links",
+  "version": "0.1.0",
+  "title": "Buttons & Links",
+  "summary": "The motion language for every interactive control: hover shifts, an underline that draws, and a press that springs back.",
+  "category": "foundation",
+  "tags": ["buttons", "links", "hover", "press"],
+  "author": { "name": "Joe Buckley", "url": "https://dropblocs.com" },
+  "license": "MIT",
+  "intent": {
+    "design": "One pill button in three weights and two link styles, and nothing else. Solid is ink on paper that turns the brand green on hover; outline and ghost borrow the current text colour so they work on any background, including contrast bands, without their own variants. Links are set in the running text colour and earn their underline or arrow through interaction. Every other block uses these recipes verbatim so the whole site feels pressed from the same mould.",
+    "motion": "Hover is a colour crossfade and nothing moves except a trailing arrow, which nudges with the emphasis curve. Underlines draw in from the left and retreat to the right so the eye reads direction, not a toggle. Pressing squashes a button a few percent instantly and releasing springs it back with a small overshoot; that spring is the signature, and it belongs on buttons only, never on text links. If a control looks animated at rest, or hover makes anything jump, it is wrong."
+  },
+  "files": [
+    { "path": "block.html", "type": "html", "target": "{blocksDir}/buttons-links/block.html" },
+    { "path": "block.js", "type": "js", "target": "{blocksDir}/buttons-links/block.js" },
+    { "path": "preview.webp", "type": "asset" }
+  ],
+  "preview": { "image": "preview.webp" },
+  "dependencies": {
+    "npm": ["gsap@^3.13", "alpinejs@^3.14"],
+    "blocks": [],
+    "tokens": "^0.1.0"
+  },
+  "runtime": { "globals": ["gsap", "Alpine"] },
+  "slots": {},
+  "tokens": {
+    "consumes": [
+      "color-db-bg", "color-db-fg", "color-db-accent", "color-db-on-accent",
+      "color-db-contrast", "color-db-on-contrast", "radius-db-full",
+      "duration-db-instant", "duration-db-fast", "duration-db-snappy",
+      "ease-db-move", "ease-db-emphasis"
+    ]
+  },
+  "motion": {
+    "triggers": ["hover", "click"],
+    "reducedMotion": "fade",
+    "params": {
+      "press": { "type": "boolean", "default": true, "description": "Press and release feedback on controls carrying data-press" },
+      "pressScale": { "type": "number", "default": 0.97, "min": 0.9, "max": 1, "description": "Scale a control squashes to while pressed" },
+      "pressDuration": { "type": "duration", "default": "db-instant", "locked": true },
+      "releaseDuration": { "type": "duration", "default": "db-fast", "min": 100, "max": 400, "description": "Length of the spring back after release" },
+      "releaseEase": { "type": "easing", "default": "db-emphasis", "locked": true }
+    }
+  },
+  "usage": {
+    "placement": [
+      "Copy a single control's markup and classes into another block; the sheet itself is only for the playground",
+      "Put x-data=\"buttonsLinks\" on a container that holds the controls, such as the nav or footer root, and data-press on each button inside it",
+      "Motion params go as data-motion-* on that container, not on individual controls",
+      "Solid for the one primary action in view, outline for the secondary, ghost for tertiary actions in dense UI",
+      "Underline links for standalone links such as nav and footer items; arrow links when the link leads somewhere larger"
+    ],
+    "pairsWith": ["section-wrapper"],
+    "avoidWith": [],
+    "a11y": [
+      "Actions are button elements and navigation is anchor elements; never swap them for styling",
+      "Focus-visible draws a two pixel accent outline with offset and is never animated",
+      "Arrow icons are aria-hidden; the link text carries the meaning",
+      "Links inside running text keep a permanent underline; the underline-draw recipe is for standalone links only",
+      "Disabled controls skip hover and press feedback",
+      "Press feedback works from the keyboard on Enter and Space as well as the pointer"
+    ],
+    "doNotChange": [
+      "Hover and underline timings are classes bound to the token durations and easings; retune the token, never the class",
+      "Nothing moves on hover except a trailing arrow",
+      "Press feedback belongs to buttons only; do not add data-press to text links",
+      "Outline and ghost use currentColor so one recipe works on every background; do not give them their own colour tokens"
+    ]
+  },
+  "variants": [
+    { "name": "solid", "description": "Primary. Ink on paper, turns accent on hover; inside a contrast section it inverts automatically" },
+    { "name": "outline", "description": "Secondary. Faint currentColor border that firms up on hover" },
+    { "name": "ghost", "description": "Tertiary. No border; a faint currentColor wash on hover" },
+    { "name": "underline", "description": "Text link whose underline draws in from the left and retreats to the right" },
+    { "name": "arrow", "description": "Text link with a trailing arrow that nudges right on hover" }
+  ],
+  "conversion": {
+    "twig": {
+      "notes": [
+        "This is a foundation piece, not a Matrix block. Convert the button recipes to templates/_components/button.twig taking label, url, variant (solid, outline, ghost) and an optional arrow flag, and the link recipes to templates/_components/link.twig taking label, url and variant (underline, arrow)",
+        "Every other converted block renders its link slots through these two components instead of a plain anchor",
+        "data-variant here sits on each control rather than the block root because a control is the unit other blocks reuse",
+        "Add x-data=\"buttonsLinks\" to the converted nav and footer roots so their controls get press feedback; block.js is copied unchanged as usual"
+      ]
+    }
+  }
+}

@@ -1,0 +1,76 @@
+<!--
+  buttons-links
+  The motion language for every interactive control.
+  The root delegates press feedback to any descendant carrying data-press.
+  Hover, focus and underline motion are Tailwind classes using the token durations and easings.
+  Other blocks copy a control's markup and classes, not this sheet.
+-->
+<div
+  x-data="buttonsLinks"
+  data-block="buttons-links"
+  data-motion-press="true"
+  data-motion-press-scale="0.97"
+  class="flex flex-col gap-10"
+>
+  <!-- demo content: one row per control recipe -->
+  <div class="flex flex-col gap-4">
+    <p class="text-sm uppercase tracking-widest opacity-60">Buttons</p>
+    <div class="flex flex-wrap items-center gap-4">
+      <a
+        href="#"
+        data-variant="solid"
+        data-press
+        class="group inline-flex items-center justify-center gap-2 rounded-db-full bg-db-fg px-5 py-3 text-sm font-medium text-db-bg transition-colors duration-(--duration-db-fast) ease-db-move hover:bg-db-accent hover:text-db-on-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-db-accent in-data-[variant=contrast]:bg-db-on-contrast in-data-[variant=contrast]:text-db-contrast"
+      >
+        Start a project
+        <svg class="size-4 transition-transform duration-(--duration-db-fast) ease-db-emphasis group-hover:translate-x-0.5 motion-reduce:transition-none" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+      <button
+        type="button"
+        data-variant="outline"
+        data-press
+        class="inline-flex items-center justify-center gap-2 rounded-db-full border border-current/30 px-5 py-3 text-sm font-medium transition-colors duration-(--duration-db-fast) ease-db-move hover:border-current focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-db-accent disabled:pointer-events-none disabled:opacity-50"
+      >
+        See the work
+      </button>
+      <button
+        type="button"
+        data-variant="ghost"
+        data-press
+        class="inline-flex items-center justify-center gap-2 rounded-db-full px-5 py-3 text-sm font-medium transition-colors duration-(--duration-db-fast) ease-db-move hover:bg-current/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-db-accent disabled:pointer-events-none disabled:opacity-50"
+      >
+        Maybe later
+      </button>
+      <button
+        type="button"
+        data-variant="outline"
+        data-press
+        disabled
+        class="inline-flex items-center justify-center gap-2 rounded-db-full border border-current/30 px-5 py-3 text-sm font-medium transition-colors duration-(--duration-db-fast) ease-db-move hover:border-current focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-db-accent disabled:pointer-events-none disabled:opacity-50"
+      >
+        Disabled
+      </button>
+    </div>
+  </div>
+
+  <div class="flex flex-col gap-4">
+    <p class="text-sm uppercase tracking-widest opacity-60">Links</p>
+    <div class="flex flex-wrap items-center gap-8">
+      <a
+        href="#"
+        data-variant="underline"
+        class="bg-[linear-gradient(currentColor,currentColor)] bg-size-[0%_1px] bg-right-bottom bg-no-repeat pb-px text-sm font-medium transition-[background-size] duration-(--duration-db-snappy) ease-db-move hover:bg-size-[100%_1px] hover:bg-left-bottom focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-db-accent motion-reduce:transition-none"
+      >
+        Read the manifesto
+      </a>
+      <a
+        href="#"
+        data-variant="arrow"
+        class="group inline-flex items-center gap-1.5 text-sm font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-db-accent"
+      >
+        Browse the registry
+        <svg class="size-4 transition-transform duration-(--duration-db-fast) ease-db-emphasis group-hover:translate-x-1 motion-reduce:transition-none" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+    </div>
+  </div>
+</div>

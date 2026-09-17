@@ -101,6 +101,7 @@ Per slot type:
 ```
 
 - Keep the canonical element and its classes; only the content changes.
+- If `buttons-links` is installed, render `link` slots through its converted `_components/button.twig` or `_components/link.twig` (see that manifest's `conversion.twig` notes) instead of the plain anchor above.
 - `loading="lazy"` on images unless the manifest's `usage` says the block is above the fold.
 - Where the canonical block sets an image as a CSS background, use an inline `style` with `url({{ image.url }})` and keep the element.
 
