@@ -312,15 +312,28 @@ Do this once, before the test shoot.
 Before any real video, do a throwaway run whose only job is to prove the settings. Publishing
 nothing, keeping nothing.
 
-**Shoot the page transitions block.** It is the fifth and last foundation piece in
-`HANDOFF.md`, it is real work you owe the project anyway, and it is not on the publishable
-path — so a ruined take costs nothing. It is also exactly the format video 4 will use, which
-means you are rehearsing the thing that matters while you test.
+**Shoot the first hero block.** All five foundation pieces are in, so the hero is what
+`HANDOFF.md` has next, and it is real work you owe the project regardless of whether a camera
+is running. It is also the format video 4 uses, which means you rehearse the thing that
+matters while you test.
+
+**The code is kept, the footage is binned.** That split is the whole point. You end the
+session with a hero block you needed anyway and a video file you delete, so a ruined take
+costs you nothing but the recording.
+
+**Film a slice, not the whole build.** The hero is a bigger job than five minutes of video —
+pick one decision inside it (the motion pass, the manifest's `intent` field, one conversion
+rule) and shoot that. A test that runs ninety minutes stops being a test.
 
 **Structure it as a real video, short.** Roughly five minutes total: face to camera for a
-~20-second hook, screen recording of the actual build with voiceover, face again for a
+~20-second hook, screen recording of the actual work with voiceover, face again for a
 ~20-second outro. Doing the full bookend shape is the point — a screen-only test proves half
 of what you need.
+
+**One discipline, because the hero is different.** Unlike a foundation piece, the hero is the
+first block that goes public, so a good take will be tempting to keep. Bin it anyway. Keeping
+it makes the test into video one, shot on exactly the unvalidated settings this exists to
+check — and you only publish a first video once.
 
 ### What the test has to answer
 
