@@ -1,0 +1,51 @@
+/*
+ * page-transition
+ * Cross-document View Transitions between same-origin pages (ADR 0008).
+ * The old page falls away on the exit curve, the new one rises in on the enter curve.
+ * Browsers without support navigate instantly; nothing here needs JavaScript.
+ */
+@view-transition {
+  navigation: auto;
+}
+
+/* The nav is its own group so it stays put while the page beneath it changes. */
+[data-block="nav"] {
+  view-transition-name: db-nav;
+}
+
+::view-transition-old(root) {
+  animation: var(--duration-db-fast) var(--ease-db-exit) both db-page-exit;
+}
+
+::view-transition-new(root) {
+  animation: var(--duration-db-base) var(--ease-db-enter) both db-page-enter;
+}
+
+@keyframes db-page-exit {
+  to {
+    opacity: 0;
+    translate: 0 8px;
+  }
+}
+
+@keyframes db-page-enter {
+  from {
+    opacity: 0;
+    translate: 0 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-name: db-page-fade;
+  }
+  ::view-transition-old(root) {
+    animation-direction: reverse;
+  }
+  @keyframes db-page-fade {
+    from {
+      opacity: 0;
+    }
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "$schema": "https://dropblocs.com/schema/manifest.schema.json",
+  "spec": "1.0",
+  "name": "page-transition",
+  "version": "0.1.0",
+  "title": "Page Transition",
+  "summary": "Native cross-document page transitions: the old page falls away, the new one rises in, the nav stays put.",
+  "category": "foundation",
+  "tags": ["transition", "navigation", "view-transitions"],
+  "author": { "name": "Joe Buckley", "url": "https://dropblocs.com" },
+  "license": "MIT",
+  "intent": {
+    "design": "Nothing to see, only to feel. Moving between pages should feel like turning a page in the same book rather than opening a new one, so the nav holds still and only the content beneath it changes. It is a browser feature dressed in the Token Layer, not a router, so it works on any server-rendered site with no template changes beyond including it once.",
+    "motion": "The leaving page drops a few pixels and fades on the exit curve, quickly, because leaving should not be watched. The arriving page rises into place on the enter curve at the base duration, the same settle every section uses on scroll. The two overlap by design so there is never an empty frame. Any wipe, curtain or zoom would make the transition the point; here the content is the point."
+  },
+  "files": [
+    { "path": "block.html", "type": "html", "target": "{blocksDir}/page-transition/block.html" },
+    { "path": "block.css", "type": "css", "target": "{blocksDir}/page-transition/block.css" },
+    { "path": "block.js", "type": "js", "target": "{blocksDir}/page-transition/block.js" },
+    { "path": "preview.webp", "type": "asset" }
+  ],
+  "preview": { "image": "preview.webp" },
+  "dependencies": {
+    "npm": ["alpinejs@^3.14"],
+    "blocks": [],
+    "tokens": "^0.1.0"
+  },
+  "runtime": { "globals": ["Alpine"] },
+  "slots": {},
+  "tokens": {
+    "consumes": ["duration-db-fast", "duration-db-base", "ease-db-exit", "ease-db-enter"]
+  },
+  "motion": {
+    "triggers": ["load"],
+    "reducedMotion": "fade",
+    "params": {
+      "prefetch": { "type": "boolean", "default": true, "description": "Prefetch same-origin pages on link hover, focus or touch so the transition is never stalled by the network" }
+    }
+  },
+  "usage": {
+    "placement": [
+      "Include once on every page, anywhere in the body; pages without it navigate instantly",
+      "Pair with nav so the bar stays fixed across the transition; without nav the whole page transitions",
+      "Nothing else on the page needs a view-transition-name; adding one to a block makes it morph between pages, which is a showpiece decision, not a default"
+    ],
+    "pairsWith": ["nav", "footer", "section-wrapper"],
+    "avoidWith": [],
+    "a11y": [
+      "Under prefers-reduced-motion both pages crossfade with no movement",
+      "Focus and scroll restoration are handled by the browser as on any navigation; nothing is intercepted",
+      "Prefetch is skipped when the user has Save-Data on"
+    ],
+    "doNotChange": [
+      "Exit is faster than enter and the two overlap; do not sequence them",
+      "Exit and enter timings are bound to the token durations and easings in block.css; retune the tokens, not the keyframes",
+      "Do not replace the native transition with a JavaScript router or link interception"
+    ]
+  },
+  "variants": [],
+  "conversion": {
+    "twig": {
+      "notes": [
+        "This is a foundation piece, not a Matrix block. Include block.html once from the layout's body, and import block.css from src/css/index.css as a block stylesheet (see conversion rules, section 1)",
+        "The View Transition opt-in must be present on both the leaving and the arriving page, so the stylesheet is global, never per template",
+        "Craft's control panel and live preview are unaffected; the transition only runs on front-end same-origin navigations"
+      ]
+    }
+  }
+}

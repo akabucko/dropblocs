@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>page-transition · Dropblocs</title>
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="stylesheet" href="https://use.typekit.net/eva0wwh.css" />
+    <link rel="stylesheet" href="/src/style.css" />
+    <script type="module" src="/src/main.js"></script>
+  </head>
+  <body class="bg-db-bg text-db-fg font-db-sans antialiased">
+    <!-- @block page-transition -->
+    <!-- @block nav -->
+    <main class="mx-auto flex min-h-[80vh] w-full max-w-7xl flex-col justify-center gap-6 px-6 py-db-section lg:px-10">
+      <p class="text-sm uppercase tracking-widest opacity-60">Page transition</p>
+      <h1 class="font-db-display text-4xl font-semibold tracking-tight">Follow a link. The nav stays, the page turns.</h1>
+      <p class="max-w-prose text-lg">Every block page below includes the transition, so the move there and back runs as one native view transition timed with the Token Layer.</p>
+      <ul class="flex flex-wrap gap-6" x-data="buttonsLinks">
+        <li><a href="/" data-variant="arrow" class="group inline-flex items-center gap-1.5 text-sm font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-db-accent">Home <svg class="size-4 transition-transform duration-(--duration-db-fast) ease-db-emphasis group-hover:translate-x-1 motion-reduce:transition-none" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a></li>
+        <li><a href="/blocks/section-wrapper/" data-variant="arrow" class="group inline-flex items-center gap-1.5 text-sm font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-db-accent">Section wrapper <svg class="size-4 transition-transform duration-(--duration-db-fast) ease-db-emphasis group-hover:translate-x-1 motion-reduce:transition-none" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a></li>
+        <li><a href="/blocks/buttons-links/" data-variant="arrow" class="group inline-flex items-center gap-1.5 text-sm font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-db-accent">Buttons and links <svg class="size-4 transition-transform duration-(--duration-db-fast) ease-db-emphasis group-hover:translate-x-1 motion-reduce:transition-none" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a></li>
+        <li><a href="/blocks/footer/" data-variant="arrow" class="group inline-flex items-center gap-1.5 text-sm font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-db-accent">Footer <svg class="size-4 transition-transform duration-(--duration-db-fast) ease-db-emphasis group-hover:translate-x-1 motion-reduce:transition-none" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a></li>
+      </ul>
+    </main>
+    <!-- @block footer -->
+  </body>
+</html>

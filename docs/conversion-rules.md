@@ -27,7 +27,7 @@ window.ScrollTrigger = ScrollTrigger;
 
 `window.Alpine = Alpine` is already there in the starter. Blocks rely on these globals and never import them (ADR 0005).
 
-5. Create `src/js/blocks/` for block scripts.
+5. Create `src/js/blocks/` for block scripts and `src/css/blocks/` for the few blocks that ship a `block.css`.
 
 ## 1. Output
 
@@ -35,6 +35,7 @@ window.ScrollTrigger = ScrollTrigger;
 | --- | --- |
 | `blocks/hero-parallax/block.html` | `templates/_blocks/heroParallax.twig` |
 | `blocks/hero-parallax/block.js` | `src/js/blocks/heroParallax.js`, imported once from `src/js/index.js` |
+| `blocks/page-transition/block.css` | `src/css/blocks/pageTransition.css`, imported once from `src/css/index.css` after `dropblocs.css` |
 | `preview.*` | not installed |
 
 - Handle = manifest `name` in camelCase. It is the partial filename and the Matrix entry type handle.
@@ -111,6 +112,10 @@ Per slot type:
 - Add `import './blocks/<handle>.js';` to `src/js/index.js` above `Alpine.start()`.
 - Inline `x-data` in the markup stays inline.
 - Never turn a block's globals into imports and never bundle GSAP per block.
+
+## 4a. Stylesheets
+
+- A `block.css`, when present, is plain CSS over the `--*-db-*` variables and is copied unchanged to `src/css/blocks/<handle>.css`. Add `@import "./blocks/<handle>.css";` to `src/css/index.css` after the `dropblocs.css` import so the variables it references exist. Never merge it into a `@theme` block or rewrite it to Tailwind utilities.
 
 ## 5. Tokens
 

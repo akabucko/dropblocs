@@ -1,0 +1,13 @@
+<!--
+  page-transition
+  Included once per page, anywhere in the body. The transition itself is block.css:
+  a cross-document View Transition timed with the token durations and easings.
+  The root only carries motion params; the Alpine component prefetches links on hover.
+-->
+<div
+  x-data="pageTransition"
+  data-block="page-transition"
+  data-variant=""
+  data-motion-prefetch="true"
+  hidden
+></div>
