@@ -149,15 +149,35 @@ You have both pieces already. Don't buy a camera.
 
 ### The one finding that shapes everything
 
-**Screen Studio caps camera/webcam recording at 720p.** So the obvious workflow — pipe the
-iPhone in over Continuity Camera and record face and screen together in one app — throws away
-almost all of your camera. Two independent sources report the cap and say the team is working
-on it; I could not reach Screen Studio's own docs to confirm, so check it in the app before
-relying on it either way.
+**Screen Studio caps its camera/webcam input at 720p — the screen recording is not limited.**
+The two are separate paths and only the camera one is capped. So the obvious workflow — pipe
+the iPhone in over Continuity Camera and record face and screen together in one app — throws
+away almost all of your camera, while the screen itself is free to go to 4K. Two independent
+sources report the camera cap and say the team is working on it; Screen Studio's own docs were
+unreachable from here, so confirm it in the app.
 
-This means **never record your face through Screen Studio.** Screen Studio records the screen.
-The phone records the face, separately, at full quality. Which is the bookend structure from
-earlier — so the tooling forces the same shape the time budget wanted. Convenient.
+This means **never record your face through Screen Studio.** Screen Studio records the screen,
+at full resolution. The phone records the face, separately, at full quality. Which is the
+bookend structure from earlier — so the tooling forces the same shape the time budget wanted.
+
+### Screen Studio — export settings
+
+Two changes from the defaults, both free.
+
+| Setting | Use | Why |
+|---|---|---|
+| Format | **MP4** | Correct already. |
+| Resolution | **4K** — not 1080p | The big one. YouTube allocates bitrate by the resolution *label*: a 4K or 1440p upload gets a richer VP9/AV1 encode than a native 1080p upload, so **even your 1080p viewers see a cleaner picture**. Testing consistently finds YouTube penalises 1080p uploads hardest. Screen text and UI edges are exactly the detail that compression destroys first. |
+| Frame rate | **60** | Correct already. Anything with scrolling, cursor movement or GSAP animation wants 60. |
+| Compression | **Studio** — not Social Media | You are feeding a compressor, not a viewer. YouTube re-encodes everything you upload, so pre-compressing means two lossy passes stacked. Screen Studio's own panel says quality **does not affect export speed**, so Social Media costs you quality and buys you nothing but a smaller file. |
+
+**On recording resolution:** set your Mac's *logical* resolution to something large-text
+(~1512×982), not native. On a Retina display the capture still happens at 2x underneath, so
+you get big readable text **and** near-4K pixels. That is why the 4K export is a real 4K
+export and not an upscale. Bump editor and terminal font sizes too, before recording.
+
+These are the *Quick export* settings. Check the full export dialog matches before uploading
+a master.
 
 ### Camera app — install Blackmagic Camera (free)
 
@@ -177,8 +197,8 @@ stock Camera app will quietly drift between them and there is no fixing that lat
 | Setting | Value | Why |
 |---|---|---|
 | Resolution | 4K | Crop room for reframing and for 9:16 shorts. |
-| Frame rate | **25fps** | **You're in the UK.** Mains is 50Hz, and 30fps under artificial light gives you flicker banding that is unfixable in post. 25 or 50 only. |
-| Shutter | 1/50 | The 180° rule at 25fps. Natural motion blur. |
+| Frame rate | **30fps if daylight, 25fps if artificial** | See below — this is the one setting your test shoot exists to settle. |
+| Shutter | Double the frame rate (1/60 at 30fps, 1/50 at 25fps) | The 180° rule. Natural motion blur. |
 | ISO | Lowest you can get away with, **locked** | Auto ISO pumps mid-sentence. |
 | White balance | Manual, ~5600K if window-lit, **locked** | The bookend-matching problem above. |
 | Codec | **HEVC**, not ProRes | ProRes 4K is enormous and buys you nothing you'll use. |
@@ -191,6 +211,31 @@ step in every edit forever, in exchange for latitude you do not need on a face s
 in controlled light. Same for 4K120 — a talking head has no motion worth 120fps, and 4K120
 ProRes needs external storage sustaining 440 MB/s. These features are real and they are for a
 different job than yours.
+
+### Frame rate — the one thing that needs testing
+
+Earlier I said 25fps, flatly, because UK mains is 50Hz and 30fps under artificial light bands.
+That was too broad, and it matters because it collides with the screen footage.
+
+The maths: your screen records at **60fps**, so the project timeline is 60fps, and face footage
+has to divide into it cleanly. **30fps divides into 60 exactly** — every frame shown twice, no
+judder. **25fps does not** (60 ÷ 25 = 2.4), so it judders slightly on a talking head. To use 25
+you would have to run the whole project at 50, and then the screen has to export at 50 too.
+
+So 30fps is what you want, and the only thing standing in its way is flicker — which **only
+happens under artificial light.** Daylight from a window does not flicker at all. Most modern
+LED bulbs don't either; the ones that band are cheap dimmed LEDs and fluorescent tubes.
+
+**This is the single most valuable thing your test shoot answers.** Shoot ten seconds at 30fps
+with your actual room lights on, in the spot you'll actually film in, and look for rolling
+bands. Then:
+
+- **No banding** → 30fps everywhere, 1/60 shutter, project at 60. Everything divides. Done.
+- **Banding** → either swap the bulb (cheapest fix by far), or drop to 25fps with a 1/50
+  shutter and run the project at 50.
+
+Given you have a day job, most of your filming will be evenings under artificial light — so
+test under the lights you'll actually use, not on a bright Saturday morning.
 
 ### Front or rear camera — actually test this
 
@@ -232,13 +277,66 @@ your hook is two sentences. Learn it. Cheaper than another app.
 - **Don't buy:** a ring light (sit facing a window), a gimbal (you are sitting still), a second
   camera, or an external SSD (you're not shooting ProRes).
 
+### Phone — one-time setup
+
+Do this once, before the test shoot.
+
+- [ ] Install **Blackmagic Camera** (free, App Store).
+- [ ] Buy a **DJI Mic Mini** or RØDE Wireless Micro, and a small tripod with a phone mount.
+- [ ] Settings → General → Storage: clear **at least 30GB**. 4K fills a phone fast and a
+      recording that stops at the good bit is the most annoying way to lose a take.
+- [ ] Settings → Display & Brightness → **Auto-Lock: Never**, so the screen doesn't sleep while
+      you're setting up a shot.
+- [ ] Settings → Focus: set up a **Do Not Disturb** mode you can one-tap before every take.
+- [ ] In Blackmagic Camera, build a preset: **4K · 30fps · 1/60 shutter · HEVC · Log OFF ·
+      main 1x lens**, ISO and white balance switched to manual so they can be locked.
+- [ ] Plug the mic receiver into the phone's USB-C and confirm Blackmagic is showing **its**
+      audio meters, not the phone's built-in mic.
+- [ ] Record 10 seconds each on **front and rear** cameras for the comparison test.
+
 ### Per-shoot checklist
 
-1. Airplane mode — one call ruins a take, and the mic is on USB-C, not Bluetooth.
-2. Lock exposure and white balance. Check they held between setups.
-3. Ten seconds of test footage, played back with headphones, before the real take.
-4. Close Slack and mail, clear the tab strip, check the git remote and sidebar.
-5. Window in front of you, never behind.
+1. **Do Not Disturb on** (not just silent) — a call kills a take, and the mic is on USB-C, so
+   Bluetooth toggles won't save you.
+2. **Lock ISO and white balance**, and check they held if you reset between setups.
+3. **Ten seconds of test footage, played back on headphones**, before the real take. This
+   catches the dead mic, which is the one mistake that costs you the whole shoot.
+4. **Check the frame**: eye level, window in front of you, head not cropped, room for a 9:16
+   crop later.
+5. **Screen hygiene** before any screen recording: Slack and mail closed, tab strip cleared,
+   git remote and sidebar checked, notifications off on the Mac too.
+6. **Check free space** on the phone. Again. It's always this.
+
+## The test shoot
+
+Before any real video, do a throwaway run whose only job is to prove the settings. Publishing
+nothing, keeping nothing.
+
+**Shoot the page transitions block.** It is the fifth and last foundation piece in
+`HANDOFF.md`, it is real work you owe the project anyway, and it is not on the publishable
+path — so a ruined take costs nothing. It is also exactly the format video 4 will use, which
+means you are rehearsing the thing that matters while you test.
+
+**Structure it as a real video, short.** Roughly five minutes total: face to camera for a
+~20-second hook, screen recording of the actual build with voiceover, face again for a
+~20-second outro. Doing the full bookend shape is the point — a screen-only test proves half
+of what you need.
+
+### What the test has to answer
+
+| # | Question | How you check it |
+|---|---|---|
+| 1 | **Does your room flicker at 30fps?** | Ten seconds under your normal evening lights. Look for rolling horizontal bands. Settles 30 vs 25 for good. |
+| 2 | **Front or rear camera?** | Same 20 seconds on each. View both **on a phone**, not the Mac. If you can't tell, take the front one — being able to see your framing is worth more than a delta you can't see. |
+| 3 | **Is the audio actually clean?** | Headphones, whole take. Listen for room echo, clothing rustle on the lav, and the fan under your desk you've stopped hearing. |
+| 4 | **Do the bookends cut together?** | Drop face-in and face-out on one timeline. Any jump in colour or brightness means exposure or white balance drifted and needs locking harder. |
+| 5 | **Is screen text readable on a phone?** | Export, put it on your phone, hold it at arm's length. If you squint, your logical resolution or font size is wrong — and this is the single most common failure in dev video. |
+| 6 | **How long did the edit actually take?** | Time it honestly. This calibrates whether fortnightly is right, or whether you need to simplify before video one. |
+
+### Then
+
+Write the answers into the **Settings** table above so it becomes your real preset rather than
+my recommendation. Anything the test contradicts, the test wins.
 
 ## The weekly five hours
 
