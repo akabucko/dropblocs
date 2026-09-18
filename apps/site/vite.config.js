@@ -9,6 +9,7 @@ const registry = resolve(__dirname, '../../packages/registry/blocks');
  * Registry blocks plugin.
  * `<!-- @block name -->` in any page is replaced with that block's block.html,
  * and its block.js (if any) is inlined so the Alpine component registers.
+ * `<!-- @slot name -->…<!-- @endslot -->` directly after it fills that slot (site content only).
  * Blocks listed under `dependencies.blocks` in a used block's manifest get their
  * block.js inlined too, mirroring the CLI's recursive install.
  */
@@ -31,13 +32,27 @@ function registryBlocks() {
     name: 'dropblocs-registry-blocks',
     transformIndexHtml(html) {
       const used = new Set();
-      html = html.replace(/<!--\s*@block\s+([a-z0-9-]+)\s*-->/g, (_, name) => {
-        const file = resolve(registry, name, 'block.html');
-        if (!existsSync(file)) return `<!-- block "${name}" not found -->`;
-        used.add(name);
-        return readFileSync(file, 'utf8');
-      });
-      const tags = withDependencies([...used])
+      // A block comment may be followed by slot fills, the site's stand-in for editing an
+      // installed copy: `<!-- @slot brand -->...<!-- @endslot -->` replaces that slot's content.
+      const fillPattern = /\s*<!--\s*@slot\s+([a-z0-9-]+)\s*-->([\s\S]*?)<!--\s*@endslot\s*-->/g;
+      html = html.replace(
+        /<!--\s*@block\s+([a-z0-9-]+)\s*-->((?:\s*<!--\s*@slot\s+[a-z0-9-]+\s*-->[\s\S]*?<!--\s*@endslot\s*-->)*)/g,
+        (_, name, fills) => {
+          const file = resolve(registry, name, 'block.html');
+          if (!existsSync(file)) return `<!-- block "${name}" not found -->`;
+          used.add(name);
+          let block = readFileSync(file, 'utf8');
+          for (const [, slot, content] of fills.matchAll(fillPattern)) {
+            block = block.replace(
+              new RegExp(`(<(\\w+)[^>]*data-slot="${slot}"[^>]*>)[\\s\\S]*?(</\\2>)`),
+              (m, open, tag, close) => `${open}${content.trim()}${close}`,
+            );
+          }
+          return block;
+        },
+      );
+      const names = withDependencies([...used]);
+      const scripts = names
         .filter((name) => existsSync(resolve(registry, name, 'block.js')))
         .map((name) => ({
           tag: 'script',
@@ -46,7 +61,15 @@ function registryBlocks() {
           // Before the site entry so the alpine:init listener exists when Alpine.start() runs.
           injectTo: 'head-prepend',
         }));
-      return { html, tags };
+      // A block.css is plain CSS over the token variables, so it is inlined untouched by Tailwind.
+      const styles = names
+        .filter((name) => existsSync(resolve(registry, name, 'block.css')))
+        .map((name) => ({
+          tag: 'style',
+          children: readFileSync(resolve(registry, name, 'block.css'), 'utf8'),
+          injectTo: 'head',
+        }));
+      return { html, tags: [...scripts, ...styles] };
     },
   };
 }

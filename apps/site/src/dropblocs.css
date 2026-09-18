@@ -1,0 +1,31 @@
+/*
+ * Dropblocs site Bridge File (ADR 0004, ADR 0009).
+ * The site is the first Brandify customer: brand values live here and only here.
+ * packages/tokens ships Registry Defaults and is never edited for the brand.
+ * Zuume Cut is licensed through Adobe Fonts and may not be self-hosted or shipped.
+ */
+/* Zuume Cut loads from <link href="https://use.typekit.net/eva0wwh.css"> in each page head; Tailwind drops external @imports. */
+@import "@fontsource-variable/geist";
+
+@theme {
+  --font-db-display: "zuume-cut", "Arial Narrow", "Helvetica Neue", sans-serif;
+  --font-db-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+  --color-db-accent: oklch(0.72 0.19 150);
+  --color-db-on-accent: oklch(0.15 0.03 150);
+}
+
+/* Accent test set (design.md step 5). Remove the losers once one is chosen. */
+:root[data-accent="pink"] {
+  --color-db-accent: oklch(0.68 0.24 350);
+  --color-db-on-accent: oklch(0.2 0.06 350);
+}
+:root[data-accent="yellow"] {
+  --color-db-accent: oklch(0.92 0.2 110);
+  --color-db-on-accent: oklch(0.2 0.04 110);
+}
+
+/* Registry Defaults check: every preview is judged with the brand off as well. */
+:root[data-brand="off"] {
+  --font-db-display: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-db-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}

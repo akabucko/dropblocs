@@ -4,18 +4,98 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dropblocs</title>
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="stylesheet" href="https://use.typekit.net/eva0wwh.css" />
     <link rel="stylesheet" href="/src/style.css" />
+    <script type="module" src="/src/main.js"></script>
   </head>
   <body class="bg-db-bg text-db-fg font-db-sans antialiased">
-    <main class="min-h-screen flex items-center justify-center py-db-section px-6">
-      <h1
-        class="font-db-display text-5xl font-semibold tracking-tight opacity-0"
-        x-data
-        x-init="gsap.to($el, { opacity: 1, y: 0, duration: 0.4, ease: 'db-enter' }); gsap.set($el, { y: 12 })"
-      >
-        dropblocs<span class="text-db-accent">.</span>
-      </h1>
+    <!-- @block page-transition -->
+    <!-- @block nav -->
+    <!-- @slot brand -->
+      <span class="relative flex h-8 items-center">
+        <span class="font-db-display text-3xl font-bold uppercase leading-none tracking-tight transition-opacity duration-(--duration-db-snappy) ease-db-move in-data-scrolled:opacity-0">DROPBLOCS</span>
+        <span class="db-mark absolute left-0 top-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-(--duration-db-snappy) ease-db-move in-data-scrolled:opacity-100" aria-hidden="true">
+          <span class="db-mark__cube">
+            <span class="db-mark__face db-mark__face--front"><span>D</span></span>
+                <span class="db-mark__face db-mark__face--right"><span>B</span></span>
+                <span class="db-mark__face db-mark__face--back"><span>D</span></span>
+                <span class="db-mark__face db-mark__face--left"><span>B</span></span>
+                <span class="db-mark__face db-mark__face--top"><span>D</span></span>
+                <span class="db-mark__face db-mark__face--bottom"><span>B</span></span>
+          </span>
+        </span>
+        <span class="sr-only">Dropblocs</span>
+      </span>
+    <!-- @endslot -->
+
+    <!-- Brand pass specimen (design.md). The hero replaces this section. -->
+    <main>
+      <section class="px-6 py-db-section lg:px-10">
+        <div class="mx-auto w-full max-w-7xl">
+          <h1
+            class="font-db-display text-display font-bold uppercase"
+            x-data
+            x-init="
+              gsap.set($el, { opacity: 1 });
+              gsap.from($el.children, { y: '-0.6em', opacity: 0, duration: 0.4, ease: 'db-enter', stagger: 0.12 });
+            "
+            style="opacity: 0"
+          >
+            <span class="inline-block">Drop</span><span class="inline-block">blocs</span>
+          </h1>
+          <p class="mt-8 max-w-xl text-body text-db-muted">
+            Motion-first, drop-in UI blocks that coding agents install, theme and adapt into CMS-driven sites.
+          </p>
+          <div class="mt-10 flex items-center gap-6">
+            <span class="db-mark" style="--db-mark-size: 4rem" aria-hidden="true">
+              <span class="db-mark__cube">
+                <span class="db-mark__face db-mark__face--front"><span>D</span></span>
+                <span class="db-mark__face db-mark__face--right"><span>B</span></span>
+                <span class="db-mark__face db-mark__face--back"><span>D</span></span>
+                <span class="db-mark__face db-mark__face--left"><span>B</span></span>
+                <span class="db-mark__face db-mark__face--top"><span>D</span></span>
+                <span class="db-mark__face db-mark__face--bottom"><span>B</span></span>
+              </span>
+            </span>
+            <span class="text-small text-db-muted">Mark prototype. Hover to spin.</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="px-6 py-db-section lg:px-10">
+        <div class="mx-auto w-full max-w-7xl">
+          <h2 class="font-db-display text-heading font-bold uppercase">Section heading in the display face</h2>
+          <p class="mt-6 max-w-2xl text-body">
+            Body copy in Geist. Zuume Cut is allowed on the wordmark, the hero headline and section headings only. Everything else, including this paragraph, the nav links and every button, is set in the sans so the display face stays a signature rather than a default.
+          </p>
+          <p class="mt-4 text-small text-db-muted">Small and nav text. 0.875rem, Geist Medium.</p>
+        </div>
+      </section>
+
+      <section class="px-6 py-db-section lg:px-10">
+        <div class="mx-auto w-full max-w-7xl">
+          <!-- @block buttons-links -->
+        </div>
+      </section>
+      <section data-variant="contrast" class="bg-db-contrast px-6 py-db-section text-db-on-contrast lg:px-10">
+        <div class="mx-auto w-full max-w-7xl">
+          <!-- @block buttons-links -->
+        </div>
+      </section>
     </main>
-    <script type="module" src="/src/main.js"></script>
+
+    <!-- Brand test controls: accent candidates and the Registry Defaults check. Site only, removed after the pass. -->
+    <div
+      x-data="{ accent: 'green', brand: 'on' }"
+      x-effect="document.documentElement.dataset.accent = accent; document.documentElement.dataset.brand = brand"
+      class="fixed bottom-4 right-4 z-50 flex items-center gap-2 rounded-db-full border border-db-border bg-db-surface/90 px-3 py-2 text-small backdrop-blur-md"
+    >
+      <template x-for="a in ['green', 'pink', 'yellow']">
+        <button type="button" class="rounded-db-full px-2 py-1" :class="accent === a ? 'bg-db-fg text-db-bg' : 'hover:bg-current/10'" @click="accent = a" x-text="a"></button>
+      </template>
+      <span class="mx-1 h-4 w-px bg-db-border"></span>
+      <button type="button" class="rounded-db-full px-2 py-1 hover:bg-current/10" @click="brand = brand === 'on' ? 'off' : 'on'" x-text="brand === 'on' ? 'brand on' : 'defaults'"></button>
+    </div>
   </body>
 </html>

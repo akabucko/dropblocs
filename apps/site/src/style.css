@@ -1,4 +1,79 @@
 @import "tailwindcss";
 @import "@dropblocs/tokens/tokens.css";
+@import "./dropblocs.css";
 
 @source "../../../packages/registry/blocks";
+
+/* Site type scale (design.md). Site-level, not db- namespace: blocks never consume these. */
+@theme {
+  --text-display: clamp(3.5rem, 2rem + 8vw, 9rem);
+  --text-display--line-height: 0.9;
+  --text-display--letter-spacing: -0.01em;
+  --text-heading: clamp(2.25rem, 1.5rem + 3vw, 4rem);
+  --text-heading--line-height: 0.95;
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.6;
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.4;
+}
+
+/*
+ * Mark prototype: the letters D and B are the two visible faces of a cube, meeting at its
+ * edge, and every face carries a letter. No box, all one colour. One spin on hover. Rough on purpose.
+ * --db-mark-stretch widens the condensed glyphs to fill the square face.
+ */
+.db-mark {
+  --db-mark-size: 1.75rem;
+  --db-mark-stretch: 2.3;
+  display: inline-block;
+  /* The projected corner is wider than one face; reserve room for the second face. */
+  width: calc(var(--db-mark-size) * 1.6);
+  height: var(--db-mark-size);
+  perspective: calc(var(--db-mark-size) * 8);
+  color: var(--color-db-fg);
+}
+.db-mark__cube {
+  display: block;
+  position: relative;
+  width: var(--db-mark-size);
+  height: 100%;
+  margin-left: calc(var(--db-mark-size) * 0.15);
+  transform-style: preserve-3d;
+  transform: rotateX(-18deg) rotateY(-32deg);
+  transition: transform var(--duration-db-slow) var(--ease-db-move);
+}
+.db-mark:hover .db-mark__cube,
+[data-slot="brand"]:hover .db-mark__cube {
+  transform: rotateX(-18deg) rotateY(-392deg);
+}
+.db-mark__face {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: visible;
+  font-family: var(--font-db-display);
+  font-weight: 700;
+  font-size: calc(var(--db-mark-size) * 1.38);
+  line-height: 1;
+  backface-visibility: hidden;
+}
+.db-mark__face > span {
+  display: block;
+  transform: scaleX(var(--db-mark-stretch));
+}
+/* Every face carries a letter, D and B alternating, so the cube stays lettered mid-spin.
+   Side faces are flush to their leading edge so neighbours meet at the corners. */
+.db-mark__face--front { justify-items: end; transform: translateZ(calc(var(--db-mark-size) / 2)); }
+.db-mark__face--front > span { transform-origin: right center; }
+.db-mark__face--right { justify-items: start; transform: rotateY(90deg) translateZ(calc(var(--db-mark-size) / 2)); }
+.db-mark__face--right > span { transform-origin: left center; }
+.db-mark__face--back { justify-items: end; transform: rotateY(180deg) translateZ(calc(var(--db-mark-size) / 2)); }
+.db-mark__face--back > span { transform-origin: right center; }
+.db-mark__face--left { justify-items: start; transform: rotateY(-90deg) translateZ(calc(var(--db-mark-size) / 2)); }
+.db-mark__face--left > span { transform-origin: left center; }
+.db-mark__face--top { transform: rotateX(90deg) translateZ(calc(var(--db-mark-size) / 2)); }
+.db-mark__face--bottom { transform: rotateX(-90deg) translateZ(calc(var(--db-mark-size) / 2)); }
+@media (prefers-reduced-motion: reduce) {
+  .db-mark__cube { transition: none; }
+}

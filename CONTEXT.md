@@ -30,6 +30,10 @@ _Avoid_: Theme, design system, config
 The process of retuning the Token Layer for a project from brand inputs such as colours, font and vibe words.
 _Avoid_: Theming, skinning, customising
 
+**Registry Default**:
+The Token Layer value a Dropbloc ships with and uses when no Brandify has run. Must be free to redistribute, so faces are system stacks or open-licence.
+_Avoid_: Theme defaults, fallback, base theme
+
 ### Manifest
 
 **Manifest**:

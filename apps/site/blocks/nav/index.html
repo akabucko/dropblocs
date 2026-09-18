@@ -4,11 +4,30 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>nav · Dropblocs</title>
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="stylesheet" href="https://use.typekit.net/eva0wwh.css" />
     <link rel="stylesheet" href="/src/style.css" />
     <script type="module" src="/src/main.js"></script>
   </head>
   <body class="bg-db-bg text-db-fg font-db-sans antialiased">
+    <!-- @block page-transition -->
     <!-- @block nav -->
+    <!-- @slot brand -->
+      <span class="relative flex h-8 items-center">
+        <span class="font-db-display text-3xl font-bold uppercase leading-none tracking-tight transition-opacity duration-(--duration-db-snappy) ease-db-move in-data-scrolled:opacity-0">DROPBLOCS</span>
+        <span class="db-mark absolute left-0 top-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-(--duration-db-snappy) ease-db-move in-data-scrolled:opacity-100" aria-hidden="true">
+          <span class="db-mark__cube">
+            <span class="db-mark__face db-mark__face--front"><span>D</span></span>
+                <span class="db-mark__face db-mark__face--right"><span>B</span></span>
+                <span class="db-mark__face db-mark__face--back"><span>D</span></span>
+                <span class="db-mark__face db-mark__face--left"><span>B</span></span>
+                <span class="db-mark__face db-mark__face--top"><span>D</span></span>
+                <span class="db-mark__face db-mark__face--bottom"><span>B</span></span>
+          </span>
+        </span>
+        <span class="sr-only">Dropblocs</span>
+      </span>
+    <!-- @endslot -->
     <div class="flex h-[80vh] items-end px-6 pb-8 text-sm text-db-muted lg:px-10">Scroll down to hide the bar, up to bring it back. Narrow the window for the menu ↓</div>
     <!-- @block section-wrapper -->
     <!-- @block section-wrapper -->
