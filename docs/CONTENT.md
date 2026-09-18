@@ -65,7 +65,7 @@ paid dev tool. They come back as a zero-cost repost of shorts you already cut, n
 own strategy. **YouTube + X is the pair**: long-form is the artefact, X is the distribution
 and the conversation.
 
-## The first five videos
+## The first six videos
 
 Ordered. Every one ends on the waitlist.
 
@@ -76,12 +76,19 @@ easings in `packages/tokens`. Viewers get a real technique; the product appears 
 being built, never as a pitch. This is the best first video because a stranger gets value
 inside thirty seconds and the project is simply visible in the background.
 
-**2. "PRD → plan → the loop: how I actually drive a coding agent"**
+**2. "The business case for an AI subscription at work"** — *gather now, publish on the decision.*
+Moved up from parked, because you are living it right now and that is the whole value: a
+retrospective on this is advice, a live one is evidence. Show the actual case — seat cost
+against hours saved, what you measured, what your finance person asked. It works either way:
+a no is the more honest video and the more relatable one.
+*Timing:* the publish date belongs to your boss, not you. See **The two asks** below.
+
+**3. "PRD → plan → the loop: how I actually drive a coding agent"**
 Your strongest differentiated material and the hardest to copy, because it is experience
 rather than documentation. Dictation vs typing belongs here as a section, not its own video —
 it is a tip, not a thesis. Show the real loop running against this repo.
 
-**3. "I watched Claude install an animated block into a Craft CMS site"**
+**4. "I watched Claude install an animated block into a Craft CMS site"**
 The money video. Per `HANDOFF.md` this is the differentiator — plenty of people post Tailwind
 components, almost nobody posts agent-assembly of a motion-first system. It is also the video
 most likely to convert a viewer into a signup, because it shows the product doing the thing
@@ -92,13 +99,13 @@ action 6 in `HANDOFF.md` — it is now also a content dependency, which is a goo
 stop deferring it. **If the conversion bet fails, you find out here, cheaply, before you have
 built a channel on top of it.**
 
-**4. "The four files that control a coding agent"**
+**5. "The four files that control a coding agent"**
 `CLAUDE.md` / `AGENTS.md`, Skills, slash commands, and subagents — collapsed into one video.
 Individually each of those is a saturated topic with a dozen competing explainers. Together,
 framed as a hierarchy of control, they are not. Use this repo's real files as the examples so
 it is a case study rather than a doc-reading.
 
-**5. "How I'm coding at an agency"** — *gated on the permission conversation.*
+**6. "How I'm coding at an agency"** — *gated on the permission conversation.*
 The series you actually want, in the position where the permission has had four videos' worth
 of time to land, and where you have a back catalogue that proves you are worth taking a small
 risk on.
@@ -108,48 +115,130 @@ risk on.
 - **"Agentic engineering vs vibe coding"** — a definitions argument. It performs on X as a
   post and underperforms on YouTube as a video. Write it, don't film it.
 - **"Who to follow in AI"** — pure reach play, zero waitlist intent, and it ages in weeks.
-- **"How to convince your boss to buy you AI subs"** — genuinely good and genuinely on-brand
-  for the agency angle. It is video seven, once you have the agency clearance, because the
-  credibility comes from being the person who did it.
 - **"Coding vacation" / cave week livestream** — a great format and completely wrong for a
   channel at zero. Livestreams need an existing audience or you are talking to nobody for
   eight hours. Revisit at ~1k subs, and it is a superb **launch week** device.
-- **"Block built by AI, watch how"** — this is video 3's format, repeated. Once it works,
+- **"Block built by AI, watch how"** — this is video 4's format, repeated. Once it works,
   it becomes the recurring series and the block-a-day engine from `HANDOFF.md`.
 
-## Setup
+## The two asks
 
-You have the two pieces that matter. Don't buy a camera.
+The AI subscription and the content permission are two requests to the same person, and it
+matters that they do not arrive together.
 
-**Screen — Screen Studio.** Auto-zoom, cursor smoothing and the built-in motion do the work
-that would otherwise be manual editing, which is where the 5-hour budget is actually won. Two
-rules:
-- **Record at a scaled logical resolution** (around 1512×982), not native 5K. Text that is
-  comfortable on your display is unreadable on a phone, and most of your YouTube audience is
-  on a phone.
-- **Bump your editor and terminal font sizes before recording, not after.** No zoom effect
-  recovers unreadable source text.
+- **Ask one — budget.** "Can the agency pay for Claude?" A normal workplace business case.
+- **Ask two — publishing.** "Can I make videos about how I work here?" A much bigger ask.
 
-**Face — iPhone 17 Pro, rear main camera, not the selfie camera.** Shoot **4K at 24 or 30fps**.
-The 120fps and ProRes RAW modes are real and irrelevant here: a talking head has no motion
-worth 120fps, and 4K120 ProRes needs external storage sustaining 440 MB/s. All you would buy
-is a file that chokes your edit.
-- Frame **horizontal with headroom** so the same take crops to 9:16 for shorts. Shoot once,
-  publish twice.
-- Screen Studio can pull in the iPhone recording alongside the Mac screen, so both sources
-  land in one project.
+Bundle them and you contaminate the ask you actually need now. A budget conversation that
+arrives with a YouTube channel attached stops being about cost per seat. **Get the budget
+decision first, on its own merits.** The materials you build for it — the spreadsheet, the
+before/after timings, your own reasoning — are yours either way, so collect them as you go.
+Then, once there is a decision, ask separately whether you can talk about it publicly.
 
-**Audio is the actual bottleneck, and the only thing worth spending on.** Viewers forgive soft
-focus and leave over bad sound. A phone propped across a room sounds like a phone propped
-across a room. Get a wired lavalier into the phone's USB-C and record every take through it —
-one audio chain for face and voiceover both, so nothing needs matching in post.
+Two framing notes, both on the assumption your boss eventually watches this:
 
-**Lighting: sit facing a window.** Free, and better than a ring light. The only real mistake is
-a window *behind* you.
+- **Don't call it "convincing your boss."** Call it the business case. "Convince" frames it as
+  a trick played on your employer; the useful artefact is the numbers, and the numbers are
+  what makes the video worth watching anyway.
+- **Don't publish while the decision is pending.** A video narrating a live internal
+  negotiation, seen by the other party mid-negotiation, is the worst possible version of this.
 
-**Don't build an edit pipeline.** Screen Studio exports the screen segments nearly finished;
-assemble bookends around them in one editor and stop. Resist colour grading, music beds and an
-animated intro — none of them move the waitlist number, and all of them cost you the cadence.
+## Setup — iPhone 17 Pro
+
+You have both pieces already. Don't buy a camera.
+
+### The one finding that shapes everything
+
+**Screen Studio caps camera/webcam recording at 720p.** So the obvious workflow — pipe the
+iPhone in over Continuity Camera and record face and screen together in one app — throws away
+almost all of your camera. Two independent sources report the cap and say the team is working
+on it; I could not reach Screen Studio's own docs to confirm, so check it in the app before
+relying on it either way.
+
+This means **never record your face through Screen Studio.** Screen Studio records the screen.
+The phone records the face, separately, at full quality. Which is the bookend structure from
+earlier — so the tooling forces the same shape the time budget wanted. Convenient.
+
+### Camera app — install Blackmagic Camera (free)
+
+Both serious options are free: **Blackmagic Camera** and Apple's **Final Cut Camera**.
+
+- **Blackmagic Camera** gives finer control, proper audio metering and an RGB histogram. Recent
+  versions added iPad compatibility, remote camera control and multiview.
+- **Final Cut Camera** is simpler, and its real selling point is Live Multicam — up to four
+  devices controlled from an iPad running Final Cut Pro. Irrelevant for one talking head.
+
+**Take Blackmagic**, for one reason that actually matters: **locked white balance and exposure**.
+Your bookends are two clips recorded twenty minutes apart that must cut together invisibly. The
+stock Camera app will quietly drift between them and there is no fixing that later.
+
+### Settings
+
+| Setting | Value | Why |
+|---|---|---|
+| Resolution | 4K | Crop room for reframing and for 9:16 shorts. |
+| Frame rate | **25fps** | **You're in the UK.** Mains is 50Hz, and 30fps under artificial light gives you flicker banding that is unfixable in post. 25 or 50 only. |
+| Shutter | 1/50 | The 180° rule at 25fps. Natural motion blur. |
+| ISO | Lowest you can get away with, **locked** | Auto ISO pumps mid-sentence. |
+| White balance | Manual, ~5600K if window-lit, **locked** | The bookend-matching problem above. |
+| Codec | **HEVC**, not ProRes | ProRes 4K is enormous and buys you nothing you'll use. |
+| Log / ProRes RAW | **Off** | See below. |
+| Lens | Main 1x | The ultrawide and telephoto are visibly worse. Don't zoom — move the tripod. |
+
+**Skip Log 2 and ProRes RAW**, even though the 17 Pro is the first phone to do them. Log is
+flat footage that *requires* a grading pass to look like anything. That is a mandatory extra
+step in every edit forever, in exchange for latitude you do not need on a face sitting still
+in controlled light. Same for 4K120 — a talking head has no motion worth 120fps, and 4K120
+ProRes needs external storage sustaining 440 MB/s. These features are real and they are for a
+different job than yours.
+
+### Front or rear camera — actually test this
+
+Standard advice is rear camera, and on quality it is still right. But the 17 Pro changed the
+maths: the front camera is now an **18MP square sensor with Center Stage**, which auto-frames
+you and **switches to landscape without you rotating the phone**.
+
+The rear camera's problem for a solo creator has always been that you cannot see your framing.
+The front camera now solves that and is finally good enough to be a real option. **Shoot the
+same thirty seconds on both in week one and look at them on a phone.** If you can't tell the
+difference at shorts size, take the one that lets you see yourself — the framing you can check
+beats the sensor you can't.
+
+### Audio — the only thing worth spending money on
+
+**DJI Mic Mini, around $79.** USB-C receiver straight into the phone, ~48h with the charging
+case, built-in noise cancelling. The **RØDE Wireless Micro** is the close alternative with the
+same shape. Either beats the phone mic by a margin nobody will miss.
+
+The workflow point: **the same receiver moves to your Mac's USB-C for Screen Studio voiceover.**
+One mic for face and screen segments both, so the two halves of every video already match and
+nothing needs fixing in post. Record it into the phone so audio is embedded in the video file —
+no clapper, no sync, ever.
+
+### Teleprompter — probably don't
+
+You're shooting a bullet spine, not a script, so a prompter for the body would undo the point.
+The one place it helps is the hook, where the first eight seconds decide everything.
+
+**PromptSmart** is the one to look at if you want it — its VoiceTrack listens and scrolls at
+your pace, which avoids the dead-eyed read that kills most prompter footage. Honestly though:
+your hook is two sentences. Learn it. Cheaper than another app.
+
+### Everything else
+
+- **Mount:** a small tabletop tripod plus a MagSafe or clamp mount. Any of them. At eye level,
+  which almost always means higher than you think.
+- **Transfer:** wired USB-C to the Mac. AirDrop is fine for a short clip and miserable for 4K.
+- **Don't buy:** a ring light (sit facing a window), a gimbal (you are sitting still), a second
+  camera, or an external SSD (you're not shooting ProRes).
+
+### Per-shoot checklist
+
+1. Airplane mode — one call ruins a take, and the mic is on USB-C, not Bluetooth.
+2. Lock exposure and white balance. Check they held between setups.
+3. Ten seconds of test footage, played back with headphones, before the real take.
+4. Close Slack and mail, clear the tab strip, check the git remote and sidebar.
+5. Window in front of you, never behind.
 
 ## The weekly five hours
 
